@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div  class="ion-padding-top ion-text-center">
+    <img src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
+    <h2>{{username}}</h2>
+
+    <ion-list inset>
+      <ion-item >{{email}}</ion-item>
+      <ion-item (click)="resetPassword" >  <a routerLink="/forgot-password" color="primary">Recuperar su Contraseña</a></ion-item>
+      <ion-item button (click)="logout()">
+        <ion-label>
+        Cerrar Sesion
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

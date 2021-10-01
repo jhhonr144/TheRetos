@@ -1,0 +1,113 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Crear Retos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+>
+
+
+<ion-item>
+  <ion-label position="floating">Nombre del reto</ion-label>
+  <ion-input type="text" [(ngModel)]="NewChallengs.name_challeng" ></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label position="floating">Descripcion</ion-label>
+  <ion-input  [(ngModel)]="NewChallengs.description"></ion-input>
+</ion-item>
+
+<ion-list>
+
+  <ion-item>
+    <ion-label>Categoria</ion-label>
+    <ion-select   [(ngModel)]="NewChallengs.category"     value="Libre" okText="Okay" cancelText="Cancelar">
+      <ion-select-option value="Libre">Libre</ion-select-option>
+      <ion-select-option value="Ejercicios" >Ejercicios Fisicos</ion-select-option>
+     <ion-select-option value="Adivinanzas">Adivinanzas</ion-select-option>
+    <!--  <ion-select-option value="loteria">Loteria</ion-select-option>
+      <ion-select-option value="cultura">Cultura General</ion-select-option>
+      <ion-select-option value="concursos">Concursos</ion-select-option>
+    -->
+    </ion-select>
+  </ion-item>
+
+</ion-list>
+<ion-item>
+  <ion-label position="floating">Tiket para participar</ion-label>
+  <ion-input   [(ngModel)]="NewChallengs.token_in"  type="number"></ion-input>
+</ion-item>
+
+
+<ion-grid>
+  <ion-row>
+    <ion-col>
+      <ion-item>
+        <ion-label position="floating">Numero de participantes</ion-label>
+        <ion-input  [(ngModel)]="NewChallengs.person_limit" type="number"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+        <ion-label >Ilimitado</ion-label>
+        <ion-checkbox  color="primary"></ion-checkbox>
+      </ion-item>
+
+    </ion-col>
+  </ion-row>
+
+</ion-grid>
+
+<ion-grid>
+  <ion-row>
+    <ion-col>
+        <ion-item>
+          <ion-label color="primary" >Fecha de Cierre</ion-label>
+    </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-item>
+    <ion-label position="floating">Mes/Dia/Año</ion-label>
+    <ion-datetime  [(ngModel)]="NewChallengs.date_limit" displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09"></ion-datetime>
+  </ion-item>
+
+  </ion-col>
+  <ion-col>
+
+    <ion-item>
+      <ion-label position="floating">Hora:Min </ion-label>
+      <ion-datetime  [(ngModel)]="NewChallengs.time_limit" displayFormat="h:mm a"></ion-datetime>
+    </ion-item>
+
+  </ion-col>
+  </ion-row>
+</ion-grid>
+
+
+<ion-grid>
+  <ion-row>
+   
+  </ion-row>
+
+</ion-grid>
+
+
+
+
+
+<ion-item>
+  <ion-label>{{privacy}}</ion-label>
+  <ion-toggle [(ngModel)]="NewChallengs.privacy" (ionChange)="notify($event)" slot="end" checked></ion-toggle>
+</ion-item>
+
+<ion-button (click)="save()" color="primary">Crear</ion-button>
+
+
+
+</ion-content>
+
+

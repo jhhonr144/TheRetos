@@ -1,0 +1,60 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons *ngIf="!showSearchbar" slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-segment *ngIf="ios" [(ngModel)]="segment" >
+      <ion-segment-button value="all">
+        All
+      </ion-segment-button>
+      <ion-segment-button value="favorites">
+        Favorites
+      </ion-segment-button>
+    </ion-segment>
+    <ion-title>TheRetos</ion-title>
+    
+    <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText"  (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="!showSearchbar" (click)="presentFilter()">
+        <span *ngIf="ios">Filter</span>
+        <span *ngIf="!ios">
+          <ion-icon slot="icon-only" name="options"></ion-icon>
+        </span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="!ios">
+    <ion-segment [(ngModel)]="segment" >
+      <ion-segment-button value="all">
+        Todos
+      </ion-segment-button>
+      <ion-segment-button value="favorites">
+        Favoritos
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+
+
+    <ion-item button detail="true" *ngFor="let challeng of Challengs" routerLink="/app/tabs/speakers/speaker-details/1">
+      <ion-avatar slot="start">
+        <ion-icon name="flash"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{challeng.name_challeng}}</h2>
+        <h3>Categoria: {{challeng.category}}</h3>
+        <ion-label color="secondary">Tickets: {{challeng.token_in}}</ion-label>
+
+      </ion-label>
+    </ion-item>
+    
+
+  </ion-list>
+  
+</ion-content>

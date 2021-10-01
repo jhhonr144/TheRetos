@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "ionic-ng-conf-app"
+  },
+  "targets": {
+    "theretos-co": {
+      "hosting": {
+        "app": [
+          "theretos-co"
+        ]
+      }
+    }
+  }
+}
