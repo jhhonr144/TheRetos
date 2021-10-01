@@ -1,20 +1,14 @@
 import { Router } from 'express';
-import { getAllUsers, addOneUser, updateOneUser, deleteOneUser } from './Users';
-import { findAll} from './Tickets';
-
-// User-route
-const userRouter = Router();
-userRouter.get('/all', getAllUsers);
-userRouter.post('/add', addOneUser);
-userRouter.put('/update', updateOneUser);
-userRouter.delete('/delete/:id', deleteOneUser);
-
+import * as ticketsCtrl from './controllers/ticketsCtrl';
 
 const TicketsRouters = Router();
-TicketsRouters.get('/', findAll);
+TicketsRouters.get('/', ticketsCtrl.getAll);
+TicketsRouters.get('/:id', ticketsCtrl.get);
+TicketsRouters.post('/', ticketsCtrl.add);
+TicketsRouters.put('/:id', ticketsCtrl.update);
+TicketsRouters.delete('/:id', ticketsCtrl.remove);
 
 // Export the base-router
 const baseRouter = Router();
-baseRouter.use('/users', userRouter);
-baseRouter.use('/Tickets', TicketsRouters);
+baseRouter.use('/tickets', TicketsRouters);
 export default baseRouter;
