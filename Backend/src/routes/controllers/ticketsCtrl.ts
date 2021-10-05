@@ -48,15 +48,19 @@ export async function add(req: Request, res: Response) {
 
 
 export async function update(req: Request, res: Response) {
-    const { id } = req.params
-    const { newItem } = req.body;
+    try{
+        const { id } = req.params
+        const newItem: Tickets = {...req.body};
 
-    const ref = admin.firestore().collection(collection).doc(id);
+        const ref = admin.firestore().collection(collection).doc(id);
 
-    // Set the 'capital' field of the city
-    const result = await ref.update(newItem);
+        // Set the 'capital' field of the city
+        const result = await ref.update(newItem);
 
-    return res.status(OK).json({"status": true});
+        return res.status(OK).json({message:"Ticket updated!"});
+    } catch (error) {
+        res.status(400).send(JSON.stringify(error));
+    }
 }
 
 export async function remove(req: Request, res: Response) {
@@ -71,4 +75,4 @@ export async function remove(req: Request, res: Response) {
 
 function handleError(res: Response, err: any) {
     return res.status(500).send({ message: `${err.code} - ${err.message}` });
- }
+}
