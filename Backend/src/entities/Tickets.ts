@@ -1,5 +1,5 @@
 export interface ITickets {
-    id: string;
+    id?: string;
     total_money: number;
     id_tickets: string;
     total_ticket: number;
@@ -9,7 +9,7 @@ export interface ITickets {
 
 class Tickets implements ITickets {
 
-    id: string;
+    id?: string;
     total_money: number;
     id_tickets: string;
     total_ticket: number;
