@@ -1,9 +1,11 @@
 export interface Tickets {
-    id_tickets:string,
-    uid:string,
-    date_creation:string,  
-    date_update:string,
-    total_ticket:number,
-    total_money:number,
-    state_ticket:string,
+    id?: string;
+    total_money: number;
+    date_creation:string; 
+    hour_creation:string;
+    date_update:string;
+    total_ticket: number;
+    uid: string;
+    state_ticket: string;
+    state_register : number;
 }

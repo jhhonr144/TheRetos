@@ -20,30 +20,29 @@ export async function getAll(req: Request, res: Response) {
     return res.status(OK).json(list);
 }
 
+//modificamos para que solo busque el ticket correspondiente a un usuario
 export async function get(req: Request, res: Response) {
     try {
         let obj:any;
         const id = req.params.id;
         // console.log(id);
-        const query = await admin.firestore().collection(collection).doc(id).get();
-        if (query.exists) {
-            obj = query.data();
-            obj.id = query.id.toString();
-            return res.status(OK).json(obj);
-          } else {
-            return res.status(BAD_REQUEST).json({"message":"Ticket don't fount!"})
-          }
+        const query = await admin.firestore().collection(collection).where("uid","==","BBM8w6T5hnaXseQAQIUSnIziyYk2").get();
+
+        query.forEach(querySnapshot => console.log(querySnapshot.data()));
         
     } catch (err) {
         return handleError(res, err)
     }
  }
 
+ 
+
 export async function add(req: Request, res: Response) {
     const newItem: Tickets = {...req.body};
     const newDoc = await admin.firestore().collection(collection).add(newItem);
     console.log(`Created a new ${collection}: ${newDoc.id}`);
-    return res.status(CREATED).send(newDoc.id);
+    newItem.id = newDoc.id
+    return res.status(CREATED).send(newItem);
 }
 
 

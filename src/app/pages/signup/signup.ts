@@ -1,3 +1,4 @@
+import { Response } from 'express';
 import { TicketsService } from './../../Services/tickets.service';
 import { Tickets } from './../../model/Tickets';
 import { AuthService } from './../../Services/auth.service';
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
 import { UserData } from '../../providers/user-data';
 
 import { UserOptions } from '../../interfaces/user-options';
+import { LoadingController } from '@ionic/angular';
 
 
 
@@ -18,22 +20,27 @@ import { UserOptions } from '../../interfaces/user-options';
 })
 export class SignupPage {
   signup: UserOptions = { email: '', password: '' };
+  uid : string
 
   NewTickets : Tickets ={
-    id_tickets   :'',
-    uid          :sessionStorage.getItem('uid'),
-    date_creation:'29/09/2021',  
-    date_update  :'29/09/2021',
-    total_ticket :0,
-    total_money  :0,
-    state_ticket :'1',
+    total_money: 0,
+    date_creation:'',
+    hour_creation:'',
+    date_update:'',
+    total_ticket: 5,
+    uid: '',
+    state_ticket: '1',
+    state_register: 1
   }
   submitted = false;
+  ResponseTickets: Object;
+  loading: any;
 
   constructor(
     public database: TicketsService,
     public router: Router,
     public userData: UserData,
+    public loadingController: LoadingController,
     private AuthService: AuthService
 
   ) {}
@@ -42,14 +49,15 @@ export class SignupPage {
     try{
       this.submitted = true;
      
-  
+     
       if (form.valid) {
+        this.presentLoading();
         //this.userData.signup(this.signup.email);
         const user = await this.AuthService.register( this.signup.email, this.signup.password);
         
         if(user){
-          //verificamos si el email esta verificado
-          
+          this.uid = user.uid
+          //verificamos si el email esta verificado      
           const IsEmailVerified = this.AuthService.IsEmailVerified(user)
           this.redirectUser(IsEmailVerified)
         }
@@ -57,16 +65,7 @@ export class SignupPage {
         // this.router.navigateByUrl('/app/tabs/schedule');
       }
     }catch(error){console.log(error)}
-   
-  }
-  saveTicket(){
-
-
-    const data = this.NewTickets;
-    data.id_tickets = this.database.createId()
-    this.database.addTicket(data,data.id_tickets).then((_) => {
-    } )
-
+    this.loading.dismiss(); 
   }
 
   private redirectUser(IsEmailVerified:Boolean) : void{
@@ -80,4 +79,27 @@ export class SignupPage {
     }
  
   }
+
+  saveTicket(){
+    let date: Date = new Date();
+    this.NewTickets.date_creation= date.toLocaleDateString()   
+    this.NewTickets.hour_creation= date.toLocaleTimeString()
+    this.NewTickets.uid = this.uid
+      const data = this.NewTickets;
+      this.database.createTickets(data)
+      .subscribe(data => {
+              console.log(data);          
+      })
+  }
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando  !...',
+  
+    });
+    await this.loading.present();
+  
+  }
+  
+
 }

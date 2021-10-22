@@ -8,6 +8,8 @@ import { UserData } from '../../providers/user-data';
 import { UserOptions } from '../../interfaces/user-options';
 import { LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { Tickets } from '../../model/Tickets';
+import { TicketsService } from '../../Services/tickets.service';
 
 @Component({
   selector: 'page-login',
@@ -18,8 +20,21 @@ export class LoginPage {
   login: UserOptions = { email: '', password: '' };
   submitted = false;
   loading :any;
+  uid : string
+
+  NewTickets : Tickets ={
+    total_money: 0,
+    date_creation:'',
+    hour_creation:'',
+    date_update:'',
+    total_ticket: 5,
+    uid: '',
+    state_ticket: '1',
+    state_register: 1
+  }
 
   constructor(
+    public database: TicketsService,
     private storage: Storage,
     public loadingController: LoadingController,
     public userData: UserData,
@@ -41,6 +56,8 @@ export class LoginPage {
          //CheckEmail
          this.storage.set('uid', user.uid);
          sessionStorage.setItem('uid', user.uid);
+
+         this.uid = user.uid
       
          const IsEmailVerified = this.AuthService.IsEmailVerified(user)
          this.redirectUser(IsEmailVerified)
@@ -64,6 +81,7 @@ export class LoginPage {
         const user = await this.AuthService.loginGoogle();
 
        if(user){
+         this.uid = user.uid
          //CheckEmail
          const IsEmailVerified = this.AuthService.IsEmailVerified(user)
          this.redirectUser(IsEmailVerified)
@@ -83,12 +101,27 @@ export class LoginPage {
 
   private redirectUser(IsEmailVerified:Boolean) : void{
     if(IsEmailVerified){
+
       this.router.navigate(['/app/tabs/challenges'])
       
     }else{
+      this.saveTicket()
       this.router.navigate(['verify-email'])
+
     }
  
+  }
+
+  saveTicket(){
+    let date: Date = new Date();
+    this.NewTickets.date_creation= date.toLocaleDateString()   
+    this.NewTickets.hour_creation= date.toLocaleTimeString()
+    this.NewTickets.uid = this.uid
+      const data = this.NewTickets;
+      this.database.createTickets(data)
+      .subscribe(data => {
+              console.log(data);          
+      })
   }
 
   async presentLoading() {

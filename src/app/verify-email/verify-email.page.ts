@@ -19,8 +19,8 @@ export class VerifyEmailPage {
     }catch(error){
    console.log('Error', error)
     }
-  
   }
+  
 
   ngOnDestroy(){
     this.AuthService.logout()

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as ticketsCtrl from './controllers/ticketsCtrl';
 
+
 const TicketsRouters = Router();
 TicketsRouters.get('/', ticketsCtrl.getAll);
 TicketsRouters.get('/:id', ticketsCtrl.get);
