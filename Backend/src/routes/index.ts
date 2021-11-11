@@ -15,7 +15,7 @@ const ChallengesRouters = Router();
 
 const ParticipationsRouters = Router();
 ParticipationsRouters.get('/', participateCtrl.getAll);
-ParticipationsRouters.post('/participate/', participateCtrl.participate);
+ParticipationsRouters.post('/participate', participateCtrl.participate);
 ParticipationsRouters.post('/', participateCtrl.add);
 ParticipationsRouters.put('/:id', participateCtrl.update);
 

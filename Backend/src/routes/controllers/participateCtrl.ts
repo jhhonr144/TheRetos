@@ -55,7 +55,7 @@ function handleError(res: Response, err: any) {
 
 
 //verificamos los ticket que tiene con los del reto para comprar si puede o no participar 
-export async function participate(req: Request, res) {
+export async function participate(req: Request, res: Response) {
     try {
         let person_tck :any;
         let challengs_tck :any;
@@ -64,8 +64,7 @@ export async function participate(req: Request, res) {
      /*    person_tck = 5
         challengs_tck = 6; */
 
-        const uid = req.params.uid;
-        const id_Challenges = req.params.id_Challenges
+        const obj = { ...req.body };
 
 
     /*     //tenemos los dos Id a comparar 
@@ -95,12 +94,7 @@ export async function participate(req: Request, res) {
 
  */
      
-        return res.status(OK).json(req);
-       
-      
-
-
-
+        return res.status(OK).json(obj);
     } catch (err) {
         return handleError(res, err)
     }
