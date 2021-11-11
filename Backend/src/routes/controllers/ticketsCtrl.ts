@@ -11,25 +11,35 @@ const collection:string = "Tickets";
 export async function getAll(req: Request, res: Response) {
     const result = await admin.firestore().collection(collection).get();
     const list: any[] = [];
+
     result.forEach(doc => { 
         list.push({
             id: doc.id, 
             data: doc.data()
         });
     });
+    
     return res.status(OK).json(list);
 }
 
 //modificamos para que solo busque el ticket correspondiente a un usuario
-export async function get(req: Request, res: Response) {
+export async function get(req: Request, res) {
     try {
         let obj:any;
-        const id = req.params.id;
-        // console.log(id);
-        const query = await admin.firestore().collection(collection).where("uid","==","BBM8w6T5hnaXseQAQIUSnIziyYk2").get();
+        const uid = req.params.uid;
+        const query = await admin.firestore().collection(collection).where("uid","==",uid).get();
 
-        query.forEach(querySnapshot => console.log(querySnapshot.data()));
-        
+        query.forEach(querySnapshot =>{
+            obj = querySnapshot.data();
+            console.log(querySnapshot.data())
+        } 
+           
+        );
+           
+            
+        return res.status(OK).json(obj);
+       
+      
     } catch (err) {
         return handleError(res, err)
     }

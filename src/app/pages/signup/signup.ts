@@ -27,7 +27,8 @@ export class SignupPage {
     date_creation:'',
     hour_creation:'',
     date_update:'',
-    total_ticket: 5,
+    total_ticket: 0,
+    ticket_money: 0,
     uid: '',
     state_ticket: '1',
     state_register: 1

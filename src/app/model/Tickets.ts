@@ -5,6 +5,7 @@ export interface Tickets {
     hour_creation:string;
     date_update:string;
     total_ticket: number;
+    ticket_money: number;
     uid: string;
     state_ticket: string;
     state_register : number;

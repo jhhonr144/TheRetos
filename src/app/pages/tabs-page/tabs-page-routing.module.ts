@@ -29,7 +29,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'speakers',
+        path: 'challenges',
         children: [
           {
             path: '',
@@ -40,8 +40,8 @@ const routes: Routes = [
             loadChildren: () => import('../session-detail/session-detail.module').then(m => m.SessionDetailModule)
           },
           {
-            path: 'speaker-details/:speakerId',
-            loadChildren: () => import('../speaker-detail/speaker-detail.module').then(m => m.SpeakerDetailModule)
+            path: 'challenges-details/:speakerId',
+            loadChildren: () => import('../challenges-details/speaker-detail.module').then(m => m.SpeakerDetailModule)
           }
         ]
       },

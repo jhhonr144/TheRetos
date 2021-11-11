@@ -12,6 +12,16 @@
     <img src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
     <h2>{{username}}</h2>
 
+    <div class="container" *ngFor="let item of tickets"> 
+          <div class="card card-1">
+            <p style="text-align: center;"><span style="font-family: Tahoma, Geneva, sans-serif;">Tickets</span></p>
+            <p style="text-align: center;"><span style="font-size: 60px;">{{item.total_ticket}}</span></p>
+            <p style="text-align: center;">Cop ${{item.ticket_money}}</p>
+          </div>
+    </div>
+
+
+
     <ion-list inset>
       <ion-item >{{email}}</ion-item>
       <ion-item (click)="resetPassword" >  <a routerLink="/forgot-password" color="primary">Recuperar su Contraseña</a></ion-item>

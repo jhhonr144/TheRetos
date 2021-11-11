@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SpeakerDetailPage } from './speaker-detail';
+import { SpeakerDetailPage } from './challenges-details'; 
 import { SpeakerDetailPageRoutingModule } from './speaker-detail-routing.module';
 import { IonicModule } from '@ionic/angular';
 

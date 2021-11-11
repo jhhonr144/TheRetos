@@ -5,6 +5,7 @@ export interface ITickets {
     hour_creation:string;
     date_update:string;
     total_ticket: number;
+    ticket_money: number;
     uid: string;
     state_ticket: string;
     state_register: number;
@@ -19,6 +20,7 @@ class Tickets implements ITickets {
     hour_creation:string;
     date_update:string;    
     total_ticket: number;
+    ticket_money: number;
     uid: string;
     state_ticket: string;
     state_register: number;

@@ -33,7 +33,7 @@ ion-toolbar ion-menu-button {
 
   height: calc(250px + var(--ion-safe-area-top));
 
-  background: center / cover url(/assets/img/speaker-background.png) no-repeat;
+  background: center / cover url(/assets/img/BeChallenge.png) no-repeat;
 }
 
 .speaker-background img {
@@ -72,4 +72,10 @@ ion-toolbar ion-menu-button {
   margin-bottom: 20px;
 
   background: var(--ion-color-step-150, #d7d8da);
+}
+.nameChallenges{
+  background-color: rgb(3, 9, 27);
+  border-radius: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
