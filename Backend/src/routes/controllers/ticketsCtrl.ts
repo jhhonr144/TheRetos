@@ -11,39 +11,48 @@ const collection:string = "Tickets";
 export async function getAll(req: Request, res: Response) {
     const result = await admin.firestore().collection(collection).get();
     const list: any[] = [];
+
     result.forEach(doc => { 
         list.push({
             id: doc.id, 
             data: doc.data()
         });
     });
+    
     return res.status(OK).json(list);
 }
 
-export async function get(req: Request, res: Response) {
+//modificamos para que solo busque el ticket correspondiente a un usuario
+export async function get(req: Request, res) {
     try {
         let obj:any;
-        const id = req.params.id;
-        // console.log(id);
-        const query = await admin.firestore().collection(collection).doc(id).get();
-        if (query.exists) {
-            obj = query.data();
-            obj.id = query.id.toString();
-            return res.status(OK).json(obj);
-          } else {
-            return res.status(BAD_REQUEST).json({"message":"Ticket don't fount!"})
-          }
-        
+        const uid = req.params.uid;
+        const query = await admin.firestore().collection(collection).where("uid","==",uid).get();
+
+        query.forEach(querySnapshot =>{
+            obj = querySnapshot.data();
+            console.log(querySnapshot.data())
+        } 
+           
+        );
+           
+            
+        return res.status(OK).json(obj);
+       
+      
     } catch (err) {
         return handleError(res, err)
     }
  }
 
+ 
+
 export async function add(req: Request, res: Response) {
     const newItem: Tickets = {...req.body};
     const newDoc = await admin.firestore().collection(collection).add(newItem);
     console.log(`Created a new ${collection}: ${newDoc.id}`);
-    return res.status(CREATED).send(newDoc.id);
+    newItem.id = newDoc.id
+    return res.status(CREATED).send(newItem);
 }
 
 
