@@ -1,4 +1,3 @@
-
 export interface IParticipate {
     id?: string;
     id_Challenges :string;

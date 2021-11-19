@@ -25,4 +25,5 @@ const baseRouter = Router();
 baseRouter.use('/tickets', TicketsRouters);
 baseRouter.use('/participe', ParticipationsRouters);
 baseRouter.use('/challenges', ChallengesRouters);
+
 export default baseRouter;

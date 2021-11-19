@@ -207,5 +207,3 @@ export async function participate(req: Request, res) {
         return handleError(res, err)
     }
  }
-
- 
