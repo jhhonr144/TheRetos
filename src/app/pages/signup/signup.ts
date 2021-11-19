@@ -49,20 +49,18 @@ export class SignupPage {
   async onSignup(form: NgForm) {
     try{
       this.submitted = true;
-     
-     
       if (form.valid) {
         this.presentLoading();
         //this.userData.signup(this.signup.email);
-        const user = await this.AuthService.register( this.signup.email, this.signup.password);
-        
-        if(user){
-          this.uid = user.uid
-          //verificamos si el email esta verificado      
-          const IsEmailVerified = this.AuthService.IsEmailVerified(user)
-          this.redirectUser(IsEmailVerified)
-        }
-       
+        this.AuthService.register(this.signup.email, this.signup.password).subscribe(user => {
+          if(user){
+            this.uid = user.uid
+            //verificamos si el email esta verificado      
+            //const IsEmailVerified = this.AuthService.IsEmailVerified(user)
+            //this.redirectUser(IsEmailVerified)
+            this.router.navigate(['/app/tabs/create']);
+          }
+        });
         // this.router.navigateByUrl('/app/tabs/schedule');
       }
     }catch(error){console.log(error)}
