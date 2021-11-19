@@ -1,4 +1,3 @@
-
 export interface IParticipate {
     id?: string;
     id_Challenges :string;
@@ -9,6 +8,7 @@ export interface IParticipate {
     state_Participate: string;
     answer : string
     number_participate : number;
+    is_win: number;
   
 }
 
@@ -23,6 +23,7 @@ class Participate implements IParticipate {
     state_Participate: string;
     answer : string
     number_participate : number;
+    is_win: number;
     
     constructor() {
 

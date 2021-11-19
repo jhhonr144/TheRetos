@@ -31,7 +31,7 @@ export async function get(req: Request, res) {
 
         query.forEach(querySnapshot =>{
             obj = querySnapshot.data();
-            console.log(querySnapshot.data())
+            //console.log(querySnapshot.data())
         } 
            
         );
@@ -45,12 +45,12 @@ export async function get(req: Request, res) {
     }
  }
 
- 
+
 
 export async function add(req: Request, res: Response) {
     const newItem: Tickets = {...req.body};
     const newDoc = await admin.firestore().collection(collection).add(newItem);
-    console.log(`Created a new ${collection}: ${newDoc.id}`);
+    //console.log(`Created a new ${collection}: ${newDoc.id}`);
     newItem.id = newDoc.id
     return res.status(CREATED).send(newItem);
 }

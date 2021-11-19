@@ -1,6 +1,6 @@
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Observable,of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Users } from './../model/user.interfase';
 import { Injectable } from '@angular/core';
@@ -14,66 +14,78 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  public user$ : Observable<Users>
+  public user$: Observable<Users>
 
 
-  constructor(public afAuth:AngularFireAuth, private afs:AngularFirestore,private router: Router,private alertCtrl: AlertController) {
+
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router, private alertCtrl: AlertController) {
 
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
-        if(user){
+        if (user) {
           return this.afs.doc<Users>(`users/${user.uid}`).valueChanges();
         }
         return of(null);
       })
     );
-    
-   }
- 
+
+  }
+
   //cambiar contraseña olvidada
-  async resetPassword(email:string):  Promise<void>{
-    try{
+  async resetPassword(email: string): Promise<void> {
+    try {
       return this.afAuth.sendPasswordResetEmail(email)
-     }catch(error){
-     console.log('Error-->', error);
-    } 
+    } catch (error) {
+      console.log('Error-->', error);
+    }
   }
 
   //login con google
-  async loginGoogle():  Promise<Users>{
-    try{
-      const {user} = await this.afAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider());
+  async loginGoogle(): Promise<Users> {
+    try {
+      const { user } = await this.afAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider());
       this.updateUserData(user);
       //enviar correo de verificacion     
       await this.sendVerificationEmail();
       return user;
-    }catch(error){
-     console.log('Error-->', error);
-    } 
+    } catch (error) {
+      console.log('Error-->', error);
+    }
   }
 
-//registro correo
-  async register(email:string, password:string):  Promise<Users>{
-    try{
-      const {user} = await this.afAuth.createUserWithEmailAndPassword(email,password);
+  //registro correo
+  async register(email: string, password: string): Promise<Users> {
+    try {
+      const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
       //enviar correo de verificacion     
       await this.sendVerificationEmail();
       return user;
-    }catch(error){
-     console.log('Error-->', error);
-    } 
-  }
-  
-  async sendVerificationEmail():  Promise<void>{
-    try{
-      //cuando se registra nuestro usuario enviar un correo 
-     return (await this.afAuth.currentUser).sendEmailVerification()
-    }catch(error){
-     console.log('Error-->', error);
-    } 
+    } catch (error) {
+      var errorCode = error.code;
+      if (errorCode === 'auth/weak-password') {
+        this.showAlert('Opps !', '', 'La contraseña debe tener al menos 6 caracteres')
+      }
+      if (errorCode === 'auth/email-already-in-use') {
+        this.showAlert('Opps !', '', 'La dirección de correo electrónico ya está en uso por otra cuenta')
+      }
+      if (errorCode === 'auth/network-request-failed') {
+        this.showAlert('Opps !', '', 'Se ha producido un error de red (como tiempo de espera, conexión interrumpida o host inaccesible).')
+      }
+      console.log('Error-->', error);
+
+    }
   }
 
-  IsEmailVerified(user: Users): Boolean{
+  async sendVerificationEmail(): Promise<void> {
+    try {
+      //cuando se registra nuestro usuario enviar un correo 
+      return (await this.afAuth.currentUser).sendEmailVerification()
+    } catch (error) {
+      console.log('Error-->', error);
+    }
+  }
+
+  IsEmailVerified(user: Users): Boolean {
     return user.emailVerified === true ? true : false;
   }
 
@@ -81,78 +93,72 @@ export class AuthService {
 
 
   //login normal
-  async login(email:string,password:string):  Promise<Users>{
-      try{
-      const {user} = await this.afAuth.signInWithEmailAndPassword(email,password);
+  async login(email: string, password: string): Promise<Users> {
+    try {
+      const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
       this.updateUserData(user);
       return user;
-    }catch(error){
+    } catch (error) {
 
       var errorCode = error.code;
       var errorMessage = error.message;
-      if (errorCode === 'auth/wrong-password') {        
-        this.showAlert('Opps','','Su Contraseña es Incorrecta')
-     } 
-     if (errorCode === 'auth/user-not-found') {        
-      this.showAlert('Opps !','','No hay ningún registro de usuario que corresponda a este identificador. Es posible que se haya eliminado al usuario.')
-   } 
+      if (errorCode === 'auth/wrong-password') {
+        this.showAlert('Opps', '', 'Su Contraseña es Incorrecta')
+      }
+      if (errorCode === 'auth/user-not-found') {
+        this.showAlert('Opps !', '', 'No hay ningún registro de usuario que corresponda a este identificador. Es posible que se haya eliminado al usuario.')
+      }
 
-   if (errorCode === 'auth/invalid-email') {        
-    this.showAlert('Opps !','','The email address is badly formatted.')
- } 
- if (errorCode === 'auth/too-many-requests') {        
-  this.showAlert('Opps !','','Access to this account has been temporarily disabl…setting your password or you can try again later')
-} 
+      if (errorCode === 'auth/invalid-email') {
+        this.showAlert('Opps !', '', 'La dirección de correo electrónico está mal formateada.')
+      }
+      if (errorCode === 'auth/too-many-requests') {
+        this.showAlert('Opps !', '', 'El acceso a esta cuenta se ha inhabilitado temporalmente ... estableciendo su contraseña o puede intentarlo de nuevo más tarde')
+      }
 
-if (errorCode === 'auth/network-request-failed') {        
-  this.showAlert('Opps !','','Se ha producido un error de red (como tiempo de espera, conexión interrumpida o host inaccesible).')
-} 
- 
- 
+      if (errorCode === 'auth/network-request-failed') {
+        this.showAlert('Opps !', '', 'Se ha producido un error de red (como tiempo de espera, conexión interrumpida o host inaccesible).')
+      }
 
-
-
-
-
-     console.log('Error-->', error);
-    } 
+      console.log('Error-->', error);
+    }
   }
 
-  async showAlert(header: string,subHeader: string,message: string) {  
-    const alert = await this.alertCtrl.create({  
-      header: header,  
-      subHeader: subHeader,  
-      message: message,  
-      buttons: ['OK']  
-    });  
-    await alert.present();  
-    const result = await alert.onDidDismiss();  
-    console.log(result);  
-  }  
+  async showAlert(header: string, subHeader: string, message: string) {
+    const alert = await this.alertCtrl.create({
+      header: header,
+      subHeader: subHeader,
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    console.log(result);
+  }
 
 
 
 
   //salir 
-  async logout(): Promise<void>{
-    try{
+  async logout(): Promise<void> {
+    try {
       await this.afAuth.signOut();
       this.router.navigate(['/login']);
-    }catch(error){
-     console.log('Error-->', error);
+    } catch (error) {
+      console.log('Error-->', error);
     }
   }
 
-  private updateUserData(user:Users){
+  private updateUserData(user: Users) {
     //leer documento con el id del cual este logueado
-    const userRef : AngularFirestoreDocument<Users> = this.afs.doc(`users/${user.uid}`)
-    const data: Users={ 
-      uid:user.uid,
-      email:user.email,
-      emailVerified:user.emailVerified,
-      displayName:user.displayName
+    const userRef: AngularFirestoreDocument<Users> = this.afs.doc(`users/${user.uid}`)
+    const data: Users = {
+      uid: user.uid,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      displayName: user.displayName
     }
-    return userRef.set(data,{merge :true})
+    return userRef.set(data, { merge: true })
 
   }
 
@@ -160,4 +166,3 @@ if (errorCode === 'auth/network-request-failed') {
 
 
 }
- 

@@ -15,7 +15,8 @@ const ChallengesRouters = Router();
 
 const ParticipationsRouters = Router();
 ParticipationsRouters.get('/', participateCtrl.getAll);
-ParticipationsRouters.post('/participate', participateCtrl.participate);
+ParticipationsRouters.post('/participate/', participateCtrl.participate);
+ParticipationsRouters.post('/details/', participateCtrl.getDetails);
 ParticipationsRouters.post('/', participateCtrl.add);
 ParticipationsRouters.put('/:id', participateCtrl.update);
 
@@ -24,4 +25,5 @@ const baseRouter = Router();
 baseRouter.use('/tickets', TicketsRouters);
 baseRouter.use('/participe', ParticipationsRouters);
 baseRouter.use('/challenges', ChallengesRouters);
+
 export default baseRouter;

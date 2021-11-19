@@ -1,13 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { LoginPage } from './../login/login';
+import {Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AlertController } from '@ionic/angular';
 import * as firebase from 'firebase';
-import { map, take } from 'rxjs/operators';
-
-import { UserData } from '../../providers/user-data';
 import { AuthService } from '../../Services/auth.service';
+import { Tickets } from '../../model/Tickets';
 
+import { TicketsService } from '../../Services/tickets.service';
 
 
 @Component({
@@ -16,16 +14,29 @@ import { AuthService } from '../../Services/auth.service';
   styleUrls: ['./account.scss'],
 })
 export class AccountPage implements OnInit {
+
   username: string;
   email:string;
   dates : any
+  tickets = [];
+
 
   constructor(private AuthSvc: AuthService,
      public router: Router,
+     public LoginPage : LoginPage,
+
+     public database: TicketsService,
   ) { }
   ngOnInit(): void {
   this.DateUSer()
   this.UserDates();
+
+/*    this.ticketObservable.getTicket$().subscribe(ticket => {
+   this.tickets = ticket
+   console.log(this.tickets)
+   });
+ */
+
   }
   
   DateUSer(){
@@ -35,6 +46,7 @@ export class AccountPage implements OnInit {
         this.dates = datos
         this.username = datos.displayName
         this.email = datos.email  
+        this.slcTicket(datos.uid)
     }
     );
    
@@ -64,9 +76,20 @@ export class AccountPage implements OnInit {
       // this value to authenticate with your backend server, if
       // you have one. Use User.getToken() instead.
       const uid = user.uid;
-
-      console.log('este es el id '+ uid)
+   
     }
   }
+
+  slcTicket(uid){  
+    this.database.getTickets(uid)
+    .subscribe(data => {
+            console.log(data);  
+            this.tickets.push(data)
+            console.log(this.tickets)
+       
+    },
+    err => console.log('HTTP Ticket', err),)
+}
+
 
 }
