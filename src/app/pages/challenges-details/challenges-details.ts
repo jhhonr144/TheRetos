@@ -2,10 +2,12 @@ import { TckParticipationsService } from './../../Services/tck-participations.se
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConferenceData } from '../../providers/conference-data';
-import { ActionSheetController, AlertController } from '@ionic/angular';
+import { ActionSheetController, AlertController, LoadingController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { TicketsService } from '../../Services/tickets.service';
 import { AuthService } from './../../Services/auth.service';
+import { Answer } from './../../model/Answer.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'page-speaker-detail',
@@ -13,11 +15,20 @@ import { AuthService } from './../../Services/auth.service';
   styleUrls: ['./speaker-detail.scss'],
 })
 export class SpeakerDetailPage implements OnInit {
+  NewChallengs: Answer ={
+    answer : ''
+  }
+
+  submitted = false;
+
   Challenges: any[];
   Tickets: any;
-  id_Challenges
+  id_Challenges;
+  uid: any;
+  details : any;
 
   speaker: any;
+  loading: any;
 
   constructor(
     private AuthService: AuthService,
@@ -28,11 +39,14 @@ export class SpeakerDetailPage implements OnInit {
     public actionSheetCtrl: ActionSheetController,
     public confData: ConferenceData,
     public inAppBrowser: InAppBrowser,
+    public loadingController: LoadingController,
     public serTicket: TicketsService,
   ) {}
 
   ngOnInit(): void {
     this.getChallengesDatails()
+    this.UpdateTck(this.id_Challenges.id_challengs)
+    
   }
 
   ionViewWillEnter() {
@@ -163,7 +177,94 @@ local2json(name) {
 }
 
 //mensaje de confirmacion 
-async presentAlertConfirm() {
+async presentAlertConfirm(form: NgForm) {
+  this.submitted = true;
+  let database = this.local2json('Ticket');
+  let Tickets = database.get();
+  this.Tickets = Tickets.uid
+
+  if (form.valid) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '¡Estas Preparado!',
+      message: 'Unete al reto!!!',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'De Una',
+          handler: () => {
+  
+            this.AuthService.user$.subscribe(
+              datos => {
+                this.uid= datos.uid
+              this.slcTicket(datos.uid,this.id_Challenges.id_challengs,this.NewChallengs.answer)
+            }
+            );
+  
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+
+}
+
+
+  //seleccionar ticket
+  slcTicket(uid,id_Challenges,answer){  
+    let Participate = {
+      uid : uid,
+      id_Challenges :id_Challenges,
+      answer : answer
+
+    }
+    console.log(Participate)
+
+   this.presentLoading().then(()=>{
+
+      this.Participate.validationParticipate(Participate).subscribe(
+        datos=>{
+        console.log(datos)
+        this.loading.dismiss();
+        if(datos == "TKBLOQUEADO"){
+
+          this.result("Jummm algo anda mal!","Problemas en tus tickets -.-")
+
+        }if (datos=="INSUFICIENTE") {
+          this.result("Ticket Insuficientes","No estas preparado para esta conversacion :(")
+          
+        }if(datos=="SUFICIENTE"){
+          this.UpdateTck(this.id_Challenges.id_challengs)
+          this.result("Gracias por participar","Bienvenido a los juegos del hambre <3")
+        }
+        if(datos=="LLENO"){
+          this.result("Nahh muy tarde","Cupos Agotados")
+        }
+        if(datos=="YA"){
+          this.result("Oyee Tranquilo!"," Ya estas inscrito a este reto")
+        }
+        
+        
+        }
+      )
+       
+    }); 
+
+
+  }
+
+
+
+//mensaje de confirmacion 
+async result(title:string,body: string) {
 
   let database = this.local2json('Ticket');
   let Tickets = database.get();
@@ -171,26 +272,12 @@ async presentAlertConfirm() {
 
   const alert = await this.alertController.create({
     cssClass: 'my-custom-class',
-    header: '¡Estas Preparado!',
-    message: 'Unete al reto!!!',
+    header: title,
+    message: body,
     buttons: [
       {
-        text: 'No',
-        role: 'cancel',
-        cssClass: 'secondary',
-        handler: (blah) => {
-          console.log('Confirm Cancel: blah');
-        }
-      }, {
-        text: 'De Una',
+        text: 'Ok',
         handler: () => {
-
-          this.AuthService.user$.subscribe(
-            datos => {
-            this.slcTicket(datos.uid,this.id_Challenges.id_challengs)
-          }
-          );
-
         }
       }
     ]
@@ -199,25 +286,27 @@ async presentAlertConfirm() {
   await alert.present();
 }
 
+async presentLoading() {
+  this.loading = await this.loadingController.create({
+    cssClass: 'my-custom-class',
+    message: 'uniéndose al reto !...',
 
-  //seleccionar ticket
-  slcTicket(uid,id_Challenges){  
-    let Participate = {
-      uid : uid,
-      id_Challenges :id_Challenges
-    }
-    this.Participate.validationParticipate(Participate).subscribe(
-      datos=>{
-        console.log(datos)
-      }
-    )
-  
-  }
+  });
+  await this.loading.present();
 
- participate(){
+}
 
-} 
-
-
+//seleccionar ticket
+UpdateTck(uid){ 
+  let detail ={
+    id_Challenges : uid
+  } 
+  this.Participate.Details(detail)
+  .subscribe(data => {
+          console.log(data)
+          this.details = [data]
+  },
+  err => console.log('HTTP Error', err),)
+}
 
 }

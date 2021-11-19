@@ -21,6 +21,12 @@ export type CreateParticipation = {
     uid : string,
     id_Challenges :string
    }
+   
+  export type detail = { 
+    id_Challenges :string
+   }
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +47,14 @@ export class TckParticipationsService {
 
     //using backend
     validationParticipate(Participate: Participate) {
-      console.log(Participate)
+      
       return this.http.post(`${this.baseUrl}/participate`, Participate)
+    }
+
+        //using backend
+    Details(id_Challenges: detail) {
+  
+      return this.http.post(`${this.baseUrl}/details`, id_Challenges)
     }
   
 

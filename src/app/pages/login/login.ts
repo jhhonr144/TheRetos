@@ -40,7 +40,7 @@ export class LoginPage {
     date_update:'',
     total_ticket: 0,
     ticket_money: 0,
-    uid: '',
+    uid: 'aaa',
     state_ticket: '1',
     state_register: 1
   }
@@ -69,6 +69,7 @@ export class LoginPage {
        if(user){
          //CheckEmail
          this.uid = user.uid
+         console.log("uid "+ this.uid)
       
          const IsEmailVerified = this.AuthService.IsEmailVerified(user)
          this.redirectUser(IsEmailVerified)
@@ -89,6 +90,8 @@ export class LoginPage {
       //  this.userData.login(this.login.email);
         const user = await this.AuthService.loginGoogle();
        if(user){   
+        this.uid = user.uid
+
         // this.slcTicket(user.uid)
          //CheckEmail
          const IsEmailVerified = this.AuthService.IsEmailVerified(user)
@@ -109,7 +112,7 @@ export class LoginPage {
   //redireccionar usuario si esta verificado o no
   private redirectUser(IsEmailVerified:Boolean) : void{
     if(IsEmailVerified){
-
+ 
       this.router.navigate(['/app/tabs/challenges'])
       
     }else{
@@ -126,10 +129,12 @@ export class LoginPage {
     this.NewTickets.date_creation= date.toLocaleDateString()   
     this.NewTickets.hour_creation= date.toLocaleTimeString()
     this.NewTickets.uid = this.uid
+
+ 
       const data = this.NewTickets;
       this.database.createTickets(data)
       .subscribe(data => {
-              console.log(data);          
+              
       })
   }
   //selecciona el tickete del usuario que ingreso

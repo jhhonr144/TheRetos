@@ -2,7 +2,7 @@
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="/app/tabs/challenges"></ion-back-button>
+        <ion-back-button   defaultHref="/app/tabs/challenges"></ion-back-button>
       </ion-buttons>
       <ion-buttons *ngIf="speaker" slot="end">
         <ion-button (click)="openContact(speaker)">
@@ -25,7 +25,7 @@
 
   <div *ngFor="let challenges of Challenges"  class="ion-padding speaker-detail">
     <p>{{challenges.description}}</p>
-    <ion-item>
+ <!--    <ion-item>
       <ion-label>Categoria</ion-label>
       <ion-label slot="end" color="success">
         <ion-chip color="twitter" button>
@@ -33,26 +33,46 @@
           <ion-label>{{challenges.category}}</ion-label>
         </ion-chip>
         </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Ganaras</ion-label>
-      <ion-label slot="end" color="warning"><ion-icon name="ticket-outline"></ion-icon>10000</ion-label>
+    </ion-item> -->
+    <ion-item *ngFor="let details of details">
+      <ion-label>Tickets Acumulados</ion-label>
+      <ion-label slot="end" color="warning"><ion-icon name="ticket-outline"></ion-icon>{{details.count}}</ion-label>
     </ion-item>
 
     <ion-item>
-      <ion-label>Costo</ion-label>
+      <ion-label>Tickets para Participar</ion-label>
       <ion-label slot="end" color="success">{{challenges.token_in}}</ion-label>
     </ion-item>
-    <ion-item>
-      <ion-label></ion-label>
-      <ion-label slot="end" color="secundary"><ion-icon name="happy-outline"></ion-icon>0/{{challenges.person_limit}}</ion-label>
+    <ion-item *ngFor="let details of details">
+      <ion-label>Ver Participantes</ion-label>
+      <ion-label slot="end" color="secundary"><ion-icon name="happy-outline"></ion-icon>{{details.players}}/{{challenges.person_limit}}</ion-label>
     </ion-item>
 
-    <ion-item>
-      <ion-input placeholder="Link de tu video"></ion-input>
-    </ion-item>
 
-    <ion-button color="success" expand="block" (click)="presentAlertConfirm()">Participar</ion-button>
+  
+
+    <form #signupForm="ngForm" novalidate>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked" color="primary">Participacion</ion-label>
+          <ion-input [(ngModel)]="NewChallengs.answer" name="answer" type="text" #answer="ngModel" required>
+          </ion-input>
+        </ion-item>
+        <ion-text color="danger">
+          <p [hidden]="answer.valid || submitted == false" class="ion-padding-start">
+            Ingresa tu respuesta
+          </p>
+        </ion-text>
+      </ion-list>
+  
+      <div class="ion-padding">
+        <ion-button (click)="presentAlertConfirm(signupForm)" type="submit" expand="block">Participar</ion-button>
+      </div>
+    </form>
+
+
+
+
     <hr>
     <ion-note  color="primary">Compartir</ion-note>
     <br>
@@ -71,5 +91,8 @@
       <ion-label>Instagram</ion-label>
     </ion-chip>
   </div>
+
+
+
   
 </ion-content>

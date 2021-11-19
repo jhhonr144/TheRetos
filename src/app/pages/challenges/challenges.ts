@@ -28,7 +28,7 @@ export class SchedulePage implements OnInit {
   loading :any;
  data: any;
 
- Tickets: any
+ Tickets = []
 
 
 
@@ -51,11 +51,19 @@ export class SchedulePage implements OnInit {
   ) { }
 
   ngOnInit() {
-      
+    
     this.ios = this.config.get('mode') === 'ios';
     this.getChallengs();
   }
 
+  ionViewDidEnter(){
+    this.AuthService.user$.subscribe(
+      datos => {
+      this.slcTicket(datos.uid)
+    }
+    );
+
+  }
   //consultamos retos
   getChallengs() {
     this.presentLoading().then(()=>{
@@ -82,7 +90,7 @@ export class SchedulePage implements OnInit {
 slcTicket(uid){  
   this.serTicket.getTickets(uid)
   .subscribe(data => {
-          console.log(data);      
+         
           this.Tickets = [data]    
           let database = this.local2json('Ticket');
           database.set(data);

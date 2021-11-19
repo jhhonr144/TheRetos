@@ -25,12 +25,12 @@
 
   <ion-item>
     <ion-label>Categoria</ion-label>
-    <ion-select   [(ngModel)]="NewChallengs.category"     value="Libre" okText="Okay" cancelText="Cancelar">
-      <ion-select-option value="Libre">Libre</ion-select-option>
-      <ion-select-option value="Ejercicios" >Ejercicios Fisicos</ion-select-option>
-     <ion-select-option value="Adivinanzas">Adivinanzas</ion-select-option>
-    <!--  <ion-select-option value="loteria">Loteria</ion-select-option>
-      <ion-select-option value="cultura">Cultura General</ion-select-option>
+    <ion-select   [(ngModel)]="NewChallengs.category"     value="1" okText="Okay" cancelText="Cancelar">
+      <ion-select-option value="1">1</ion-select-option>
+      <ion-select-option value="2" >2</ion-select-option>
+      <ion-select-option value="3">3</ion-select-option>
+      <ion-select-option value="4">4</ion-select-option>
+         <!--  <ion-select-option value="cultura">Cultura General</ion-select-option>
       <ion-select-option value="concursos">Concursos</ion-select-option>
     -->
     </ion-select>
@@ -72,7 +72,7 @@
     <ion-col>
       <ion-item>
     <ion-label position="floating">Mes/Dia/Año</ion-label>
-    <ion-datetime  [(ngModel)]="NewChallengs.date_limit" displayFormat="MM/DD/YYYY" min="1994-03-14" max="2012-12-09"></ion-datetime>
+    <ion-datetime  [(ngModel)]="NewChallengs.date_limit" displayFormat="MM/DD/YYYY" min="2021-11-15" max="2022-12-31"></ion-datetime>
   </ion-item>
 
   </ion-col>
