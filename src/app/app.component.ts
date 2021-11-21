@@ -35,6 +35,11 @@ export class AppComponent implements OnInit {
       icon: 'bulb'
     },
     {
+      title: 'Agregar Productos',
+      url: '/app/tabs/product',
+      icon: 'bag-add'
+    },
+    {
       title: 'Conocenos',
       url: '/app/tabs/about',
       icon: 'information-circle'

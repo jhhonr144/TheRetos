@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Agregar Productos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Nombre del Producto</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+
+<!-- <ion-item>
+  <input type="file" accept="image/png" id="myFileInput">
+  <label for="fileInput" icon-only ion-button>
+    <ion-icon name="image-outline"></ion-icon>
+</label>
+</ion-item> -->
+
+<ion-item>
+  <ion-button expand="full" >
+    <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+    <ion-label slot="end">Img Producto</ion-label>
+  </ion-button>
+    <input class="ion-hide" #f type="file" id="file-input"
+      accept="image/png, image/jpeg">
+
+</ion-item>
+<ion-item>
+  <ion-label>Categoria</ion-label>
+  <ion-select    value="1" okText="Okay" cancelText="Cancelar">
+    <ion-select-option value="1">Relojes</ion-select-option>
+    <ion-select-option value="2">Zapatos</ion-select-option>
+    <ion-select-option value="3">Libros</ion-select-option>
+    <ion-select-option value="4">Ropa y accesorios</ion-select-option>
+
+
+  </ion-select>
+</ion-item>
+<ion-item>
+  <ion-label>Marca</ion-label>
+  <ion-select    value="1" okText="Okay" cancelText="Cancelar">
+    <ion-select-option value="1">Nike</ion-select-option>
+    <ion-select-option value="2">Adidas</ion-select-option>
+    <ion-select-option value="3">Puma</ion-select-option>
+    <ion-select-option value="4">Generico</ion-select-option>
+  </ion-select>
+</ion-item>
+
+
+<ion-item>
+  <ion-label position="floating">Tickets</ion-label>
+  <ion-input type="number"></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label position="floating">Inventario</ion-label>
+  <ion-input type="number"></ion-input>
+</ion-item>
+
+
+
+</ion-content>

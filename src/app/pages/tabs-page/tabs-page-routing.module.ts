@@ -56,6 +56,16 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'product',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../add-product/add-product.module').then(m => m.addProductModule),
+            canActivate : [AuthGuard]
+          }
+        ]
+      },
+      {
         path: 'about',
         children: [
           {
