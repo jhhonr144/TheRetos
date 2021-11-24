@@ -15,6 +15,7 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 
 
@@ -27,6 +28,7 @@ import { AngularFireModule } from '@angular/fire';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     FormsModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),

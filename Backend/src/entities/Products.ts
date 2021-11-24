@@ -1,7 +1,8 @@
 export interface IProducts {
     id_uid: string;
-    id_product :string;
+    id_product?:string;
     name: string;
+    path:string;
     category: number;
     marking:string; 
     ticket:number;
@@ -16,8 +17,9 @@ export interface IProducts {
 class Products implements IProducts {
 
     id_uid: string;
-    id_product :string;
+    id_product?:string;
     name: string;
+    path:string;
     category: number;
     marking:string; 
     ticket:number;

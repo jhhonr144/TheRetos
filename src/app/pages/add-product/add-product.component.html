@@ -10,7 +10,7 @@
 <ion-content>
   <ion-item>
     <ion-label position="floating">Nombre del Producto</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" [(ngModel)]="NewProducts.name"></ion-input>
   </ion-item>
 
 <!-- <ion-item>
@@ -26,12 +26,12 @@
     <ion-label slot="end">Img Producto</ion-label>
   </ion-button>
     <input class="ion-hide" #f type="file" id="file-input"
-      accept="image/png, image/jpeg">
+      accept="image/png, image/jpeg" (change)="saveProduct($event)">
 
 </ion-item>
 <ion-item>
   <ion-label>Categoria</ion-label>
-  <ion-select    value="1" okText="Okay" cancelText="Cancelar">
+  <ion-select [(ngModel)]="NewProducts.category"   value="1" okText="Okay" cancelText="Cancelar">
     <ion-select-option value="1">Relojes</ion-select-option>
     <ion-select-option value="2">Zapatos</ion-select-option>
     <ion-select-option value="3">Libros</ion-select-option>
@@ -42,7 +42,7 @@
 </ion-item>
 <ion-item>
   <ion-label>Marca</ion-label>
-  <ion-select    value="1" okText="Okay" cancelText="Cancelar">
+  <ion-select  [(ngModel)]="NewProducts.marking"   value="1" okText="Okay" cancelText="Cancelar">
     <ion-select-option value="1">Nike</ion-select-option>
     <ion-select-option value="2">Adidas</ion-select-option>
     <ion-select-option value="3">Puma</ion-select-option>
@@ -53,14 +53,14 @@
 
 <ion-item>
   <ion-label position="floating">Tickets</ion-label>
-  <ion-input type="number"></ion-input>
+  <ion-input [(ngModel)]="NewProducts.ticket"  type="number"></ion-input>
 </ion-item>
 
 <ion-item>
   <ion-label position="floating">Inventario</ion-label>
-  <ion-input type="number"></ion-input>
+  <ion-input [(ngModel)]="NewProducts.Inventory"  type="number"></ion-input>
 </ion-item>
 
-
+<ion-button (click)="SaveProduct()"  >Guardar</ion-button>
 
 </ion-content>
