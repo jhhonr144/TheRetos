@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Regalos',
-      url: '/app/tabs/speakers',
+      url: '/app/tabs/listProducts',
       icon: 'flame'
     },
     {

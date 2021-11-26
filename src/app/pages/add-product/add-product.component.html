@@ -20,15 +20,7 @@
 </label>
 </ion-item> -->
 
-<ion-item>
-  <ion-button expand="full" >
-    <ion-icon lazy="true" slot="start" name="image"></ion-icon>
-    <ion-label slot="end">Img Producto</ion-label>
-  </ion-button>
-    <input class="ion-hide" #f type="file" id="file-input"
-      accept="image/png, image/jpeg" (change)="saveProduct($event)">
 
-</ion-item>
 <ion-item>
   <ion-label>Categoria</ion-label>
   <ion-select [(ngModel)]="NewProducts.category"   value="1" okText="Okay" cancelText="Cancelar">
@@ -47,6 +39,7 @@
     <ion-select-option value="2">Adidas</ion-select-option>
     <ion-select-option value="3">Puma</ion-select-option>
     <ion-select-option value="4">Generico</ion-select-option>
+    <ion-select-option value="4">Otros</ion-select-option>
   </ion-select>
 </ion-item>
 
@@ -59,6 +52,14 @@
 <ion-item>
   <ion-label position="floating">Inventario</ion-label>
   <ion-input [(ngModel)]="NewProducts.Inventory"  type="number"></ion-input>
+</ion-item>
+<ion-item>
+  <ion-button expand="full" >
+    <ion-icon lazy="true" slot="start" name="image"></ion-icon>
+  </ion-button>
+    <input class="ion-hide" #f type="file" id="file-input"
+      accept="image/png, image/jpeg" (change)="saveProduct($event)">
+
 </ion-item>
 
 <ion-button (click)="SaveProduct()"  >Guardar</ion-button>

@@ -45,6 +45,7 @@ const routes: Routes = [
           }
         ]
       },
+
       {
         path: 'create',
         children: [
@@ -52,6 +53,16 @@ const routes: Routes = [
             path: '',
             loadChildren: () => import('../CreateChalleges/create.module').then(m => m.MapModule),
             canActivate : [AuthGuard]
+          }
+        ]
+      },
+      {
+        path: 'listProducts',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../speaker-list/speaker-list.module').then(m => m.SpeakerListModule),
+           
           }
         ]
       },

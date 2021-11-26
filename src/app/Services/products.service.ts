@@ -1,8 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+
+
+export type CreateProducts= { 
+  id_uid: string;
+  id_product :string;
+  name: string;
+  path:string;
+  category: number;
+  marking:string; 
+  ticket:number;
+  Inventory: number;
+  hours_create : string
+  date_create : string;
+  state : number; }
 
 
 @Injectable({
@@ -11,8 +27,9 @@ import { finalize } from 'rxjs/operators';
 export class ProductsService {
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
-
-  constructor( public storage: AngularFireStorage) { }
+  private baseUrl = environment.baseUrl + "/products";
+  
+  constructor( public storage: AngularFireStorage,public Firestore: AngularFirestore,private http: HttpClient) { }
 
   uploadImage(file:any, path : string, nombre : string):Promise<string>{
     return new Promise (resolve => {
@@ -37,4 +54,15 @@ export class ProductsService {
 
     );
   }
+
+    addProducts(products: CreateProducts){
+      return this.http.post(`${this.baseUrl}`, products)
+  }
+
+  getProducts(){
+    return this.http.get(`${this.baseUrl}`)
+}
+
+
+
 }
