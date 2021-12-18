@@ -1,0 +1,44 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons *ngIf="!showSearchbar" slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Validar Ganador</ion-title>
+
+    
+    
+    <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText"  (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
+    <ion-buttons slot="end">
+
+  
+      <h4 *ngFor="let tickets of Tickets">  <ion-icon color="warning"  name="ticket-outline"></ion-icon> {{tickets.total_ticket}}</h4>
+
+  
+      <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+
+
+    <ion-item  button detail="true" *ngFor="let challeng of Challengs" >
+      <ion-avatar slot="start" (click)="details(challeng)">
+        <ion-icon name="flash"></ion-icon>
+      </ion-avatar>
+      <ion-label (click)="details(challeng)">
+        <h2> {{challeng.name_challeng}}</h2>
+        <!-- <h3>Categoria: {{challeng.category}}</h3> -->
+        <ion-label color="secondary">Tickets: {{challeng.token_in}}</ion-label>
+
+      </ion-label>
+    </ion-item>
+    
+
+  </ion-list>
+  
+</ion-content>

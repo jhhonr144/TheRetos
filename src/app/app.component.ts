@@ -40,6 +40,11 @@ export class AppComponent implements OnInit {
       icon: 'bag-add'
     },
     {
+      title: 'Validar Ganadores',
+      url: '/app/tabs/winners',
+      icon: 'trophy'
+    },
+    {
       title: 'Conocenos',
       url: '/app/tabs/about',
       icon: 'information-circle'
