@@ -58,7 +58,6 @@ function handleError(res: Response, err: any) {
 }
 
 export async function getDetails(req: Request, res: Response) {
-
     const id_Challenges = req.body.id_Challenges
     const result = await admin.firestore().collection(collection).where("id_Challenges","==",id_Challenges).get();
     const list: any[] = [];
@@ -80,10 +79,22 @@ export async function getDetails(req: Request, res: Response) {
         count : count
 
     }
-    
-
     return res.status(OK).json(respon);
+}
 
+export async function getDetailsAll(req: Request, res: Response) {
+    const id_Challenges = req.body.id_Challenges
+    const result = await admin.firestore().collection(collection).where("id_Challenges","==",id_Challenges).get();
+    const list: any[] = [];
+    var count = 0; 
+    result.forEach(doc => { 
+        list.push({
+            id: doc.id, 
+            data: doc.data()
+        });
+    });
+
+    return res.status(OK).json(list);
 }
 
 

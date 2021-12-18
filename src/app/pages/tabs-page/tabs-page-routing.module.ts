@@ -77,6 +77,19 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'winners',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../validate-winner/validate-winner.module').then(m => m.validateWinnerModule)
+          },
+          {
+            path: 'winners-details',
+            loadChildren: () => import('../choose-winner/choose-winner.module').then(m => m.chooseWinnerModule)
+          },
+        ]
+      },
+      {
         path: 'about',
         children: [
           {

@@ -1,3 +1,4 @@
+import { of } from 'rxjs';
 import { TckParticipationsService } from './../../Services/tck-participations.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -8,13 +9,14 @@ import { TicketsService } from '../../Services/tickets.service';
 import { AuthService } from './../../Services/auth.service';
 import { Answer } from './../../model/Answer.model';
 import { NgForm } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'page-speaker-detail',
-  templateUrl: 'speaker-detail.html',
-  styleUrls: ['./speaker-detail.scss'],
+  selector: 'app-choose-winner',
+  templateUrl: './choose-winner.component.html',
+  styleUrls: ['./choose-winner.component.scss'],
 })
-export class SpeakerDetailPage implements OnInit {
+export class ChooseWinnerComponent implements OnInit {
   NewChallengs: Answer ={
     answer : ''
   }
@@ -26,12 +28,17 @@ export class SpeakerDetailPage implements OnInit {
   id_Challenges;
   uid: any;
   details : any;
-
+  Viewdetails: any;
   speaker: any;
   loading: any;
+  video:any = [ ];
 
-  constructor(
-    private AuthService: AuthService,
+
+
+  mystring: any;
+  elementSrc: any[] =[];
+  
+  constructor( private AuthService: AuthService,
     public Participate: TckParticipationsService,
     public alertController: AlertController,
     private dataProvider: ConferenceData,
@@ -41,14 +48,14 @@ export class SpeakerDetailPage implements OnInit {
     public inAppBrowser: InAppBrowser,
     public loadingController: LoadingController,
     public serTicket: TicketsService,
-  ) {}
+    private sanitizer : DomSanitizer) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getChallengesDatails()
     this.UpdateTck(this.id_Challenges.id_challengs)
+    this.ViewDetails(this.id_Challenges.id_challengs)
     
   }
-
   ionViewWillEnter() {
     this.dataProvider.load().subscribe((data: any) => {
       const speakerId = this.route.snapshot.paramMap.get('speakerId');
@@ -132,7 +139,6 @@ export class SpeakerDetailPage implements OnInit {
 
     await actionSheet.present();
   }
-
   getChallengesDatails(){
     //aca debes es seleccionar el uid de la persona
     let database = this.local2json('Challenges');
@@ -171,7 +177,6 @@ local2json(name) {
     },
   };
 }
-
 //mensaje de confirmacion 
 async presentAlertConfirm(form: NgForm) {
   this.submitted = true;
@@ -291,7 +296,6 @@ async presentLoading() {
   await this.loading.present();
 
 }
-
 //seleccionar ticket
 UpdateTck(uid){ 
   let detail ={
@@ -299,10 +303,50 @@ UpdateTck(uid){
   } 
   this.Participate.Details(detail)
   .subscribe(data => {
-          console.log(data)
           this.details = [data]
   },
   err => console.log('HTTP Error', err),)
 }
+
+ViewDetails(uid){ 
+  let detail ={
+    id_Challenges : uid
+  } 
+  this.Participate.ViewDetails(detail)
+  .subscribe(data => {
+        
+          this.Viewdetails = data
+  
+         // console.log("https://www.youtube.com/embed/"+mystring)
+          let i = 0
+          for (let dato of this.Viewdetails){
+             
+             this.mystring  = dato.data.answer;
+            //para extraer el id del video
+             this.mystring = this.mystring.replace("https://www.youtube.com/watch?v=", "");
+
+          let property ={
+            id:dato.id,
+            answer: "https://www.youtube.com/embed/"+this.mystring,
+            date_Participate: dato.data.date_Participate,
+            hour_Participate: dato.data.hour_Participate,
+            id_Challenges: dato.data.id_Challenges,
+            is_win: dato.data.is_win,
+            number_participate: dato.data.number_participate,
+            state_Participate: dato.data.state_Participate,
+            total_ticket: dato.data.total_ticket,
+            uid: dato.data.uid,
+          }
+           
+           this.video.push(property);
+           this.elementSrc[i] = this.sanitizer.bypassSecurityTrustResourceUrl(property.answer);
+           console.log(this.video );
+           i++; 
+          }
+          
+  },
+  err => console.log('HTTP Error', err),)
+}
+  
 
 }
