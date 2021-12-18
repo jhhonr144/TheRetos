@@ -53,8 +53,9 @@
   <ion-card *ngFor="let view of video">
     <ion-card-header>
       <ion-card-subtitle>{{view.date_Participate}}</ion-card-subtitle>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/ABOsr2_yYvU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-     
+      <div class="video-container">
+        <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(view.answer)" title="YouTube video player" class="iframe" scrolling="yes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
     </ion-card-header>
   
     <ion-card-content>
