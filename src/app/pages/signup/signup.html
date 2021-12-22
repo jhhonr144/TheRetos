@@ -16,6 +16,16 @@
   <form #signupForm="ngForm" novalidate>
     <ion-list lines="none">
       <ion-item>
+        <ion-label position="stacked" color="primary">Nombre</ion-label>
+        <ion-input [(ngModel)]="signup.name" name="name" type="text" #name="ngModel" required></ion-input>
+      </ion-item>
+      <ion-text color="danger">
+        <p [hidden]="name.valid || submitted == false" class="ion-padding-start">
+         Ingresar el nombre
+        </p>
+      </ion-text>
+
+      <ion-item>
         <ion-label position="stacked" color="primary">Correo</ion-label>
         <ion-input [(ngModel)]="signup.email" name="email" type="text" #email="ngModel" required>
         </ion-input>

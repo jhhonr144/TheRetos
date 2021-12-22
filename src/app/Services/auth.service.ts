@@ -6,9 +6,10 @@ import { Users } from './../model/user.interfase';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app'
-import { switchMap } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { UserOptions } from '../interfaces/user-options';
 
 
 @Injectable({
@@ -55,11 +56,11 @@ export class AuthService {
   }
 
   //registro correo
-  register(email: string, password: string): Observable<any> {
+  register(user: UserOptions ): Observable<any> {
     return this.http.post(`${this.baseUrl}`, {
-      displayName: "",
-      password: password,
-      email: email,
+      displayName: user.name,
+      password: user.password,
+      email: user.email,
       role: "user"
     });
   }
@@ -149,6 +150,11 @@ export class AuthService {
     }
     return userRef.set(data, { merge: true })
 
+  }
+
+  async isLoggedIn(){
+    let user = await this.afAuth.authState.pipe(first()).toPromise();
+    return user ? true: false;
   }
 
 }

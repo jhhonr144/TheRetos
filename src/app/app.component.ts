@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 
 import { MenuController, Platform, ToastController } from '@ionic/angular';
@@ -10,6 +10,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
 
 import { UserData } from './providers/user-data';
+import { AuthService } from './Services/auth.service';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -52,6 +55,8 @@ export class AppComponent implements OnInit {
   ];
   loggedIn = false;
   dark = false;
+  isUserAuthenticated: boolean = false;
+  navStart: Observable<NavigationStart>;
 
   constructor(
     private menu: MenuController,
@@ -63,14 +68,17 @@ export class AppComponent implements OnInit {
     private userData: UserData,
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
+    private authService:AuthService,
   ) {
     this.initializeApp();
+    // Create a new Observable that publishes only the NavigationStart event
+    this.navStart = this.router.events.pipe(
+      filter(evt => evt instanceof NavigationStart)
+    ) as Observable<NavigationStart>;
   }
 
   async ngOnInit() {
-   
- 
-
+    this.isUserAuthenticated = await this.authService.isLoggedIn();
     this.swUpdate.available.subscribe(async res => {
       const toast = await this.toastCtrl.create({
         message: 'Update available!',
@@ -90,6 +98,12 @@ export class AppComponent implements OnInit {
         .then(() => this.swUpdate.activateUpdate())
         .then(() => window.location.reload());
     });
+    
+    this.navStart.subscribe(evt => {
+      this.authService.isLoggedIn().then(resp => {
+        this.isUserAuthenticated = resp;
+      });
+    });
   }
 
   initializeApp() {
@@ -98,7 +112,6 @@ export class AppComponent implements OnInit {
       this.splashScreen.hide();
     });
   }
-
 
   logout() {
     this.userData.logout().then(() => {
