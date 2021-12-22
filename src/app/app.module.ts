@@ -16,6 +16,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { AuthTokenHttpInterceptorProvider } from './Services/http-interceptors/auth-token.interceptor';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { AuthTokenHttpInterceptorProvider } from './Services/http-interceptors/a
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     FormsModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),

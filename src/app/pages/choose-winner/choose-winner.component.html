@@ -2,7 +2,7 @@
   <ion-header class="ion-no-border">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button   defaultHref="/app/tabs/challenges"></ion-back-button>
+        <ion-back-button   defaultHref="/app/tabs/winners"></ion-back-button>
       </ion-buttons>
       <ion-buttons *ngIf="speaker" slot="end">
         <ion-button (click)="openContact(speaker)">
@@ -48,50 +48,23 @@
     </ion-item>
 
 
-  
-
-    <form #signupForm="ngForm" novalidate>
-      <ion-list>
-        <ion-item>
-          <ion-label position="stacked" color="primary">Participacion</ion-label>
-          <ion-input [(ngModel)]="NewChallengs.answer" name="answer" type="text" #answer="ngModel" required>
-          </ion-input>
-        </ion-item>
-        <ion-text color="danger">
-          <p [hidden]="answer.valid || submitted == false" class="ion-padding-start">
-            Ingresa tu respuesta
-          </p>
-        </ion-text>
-      </ion-list>
-  
-      <div class="ion-padding">
-        <ion-button (click)="presentAlertConfirm(signupForm)" type="submit" expand="block">Participar</ion-button>
-      </div>
-    </form>
-
-
-
-
-    <hr>
-    <ion-note  color="primary">Compartir</ion-note>
-    <br>
-    <ion-chip color="twitter" button (click)="openExternalUrl('https://twitter.com/' + speaker.twitter)">
-      <ion-icon name="logo-twitter"></ion-icon>
-      <ion-label>Twitter</ion-label>
-    </ion-chip>
-
-    <ion-chip color="dark" button (click)="openExternalUrl('https://Facebook.com')">
-      <ion-icon name="logo-facebook"></ion-icon>
-      <ion-label>Facebook</ion-label>
-    </ion-chip>
-
-    <ion-chip color="instagram" button (click)="openExternalUrl('https://instagram.com/ionicframework')">
-      <ion-icon name="logo-instagram"></ion-icon>
-      <ion-label>Instagram</ion-label>
-    </ion-chip>
   </div>
 
-
+  <ion-card *ngFor="let view of video">
+    <ion-card-header>
+      <ion-card-subtitle>{{view.date_Participate}}</ion-card-subtitle>
+      <div class="video-container">
+        <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(view.answer)" title="YouTube video player" class="iframe" scrolling="yes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <div class="ion-padding">
+        <ion-button type="submit" expand="block">Ganador</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  
 
   
 </ion-content>

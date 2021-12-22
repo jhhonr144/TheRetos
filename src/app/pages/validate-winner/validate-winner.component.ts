@@ -1,36 +1,30 @@
+import { Component, OnInit } from '@angular/core';
 import { Challengs } from './../../model/challengs.model';
 import { AuthService } from './../../Services/auth.service';
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
-
+import { AlertController, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
 import { ConferenceData } from '../../providers/conference-data';
-
+import { Router } from '@angular/router';
 import { NewChallengsService } from '../../Services/new-challengs.service';
-
 import { TicketsService } from '../../Services/tickets.service';
 
 @Component({
-  selector: 'page-schedule',
-  templateUrl: 'challenges.html',
-  styleUrls: ['./schedule.scss'],
+  selector: 'app-validate-winner',
+  templateUrl: './validate-winner.component.html',
+  styleUrls: ['./validate-winner.component.scss'],
 })
-export class SchedulePage implements OnInit {
-
+export class ValidateWinnerComponent implements OnInit {
   Challengs : Challengs[]=[];
   ios: boolean;
   dayIndex = 0;
   queryText = '';
   segment = 'all';
   loading :any;
- data: any;
-
- Tickets = []
-
+  data: any;
+  Tickets = []
 
 
-  constructor(   
-    private AuthService: AuthService,
+  constructor( 
+    private AuthService: AuthService,  
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
     public confData: ConferenceData,
@@ -42,41 +36,37 @@ export class SchedulePage implements OnInit {
     public config: Config,
     public database: NewChallengsService,
     public serTicket: TicketsService,
-  ) { }
+ ) { }
 
   ngOnInit() {
-    
     this.ios = this.config.get('mode') === 'ios';
     this.getChallengs();
   }
-
   ionViewDidEnter(){
     this.AuthService.user$.subscribe(
       datos => {
       this.slcTicket(datos.uid)
     }
     );
-
   }
-  //consultamos retos
-  getChallengs() {
-    this.presentLoading().then(()=>{
-      this.database.getChallengs<Challengs>().subscribe(res =>{
-        this.Challengs = res;
-        this.loading.dismiss();
-      }   );
-     
-    });
-    //seleccionamos usuario
-    this.AuthService.user$.subscribe(
-      datos => {
-      this.slcTicket(datos.uid)
-    }
-    );
-  //seleccionamos retos   
-}
-
-//seleccionar ticket
+    //consultamos retos
+    getChallengs() {
+      this.presentLoading().then(()=>{
+        this.database.getChallengs<Challengs>().subscribe(res =>{
+          this.Challengs = res;
+          this.loading.dismiss();
+        }   );
+       
+      });
+      //seleccionamos usuario
+      this.AuthService.user$.subscribe(
+        datos => {
+        this.slcTicket(datos.uid)
+      }
+      );
+    //seleccionamos retos   
+  }
+  //seleccionar ticket
 slcTicket(uid){  
   this.serTicket.getTickets(uid)
   .subscribe(data => {
@@ -87,7 +77,6 @@ slcTicket(uid){
   },
   err => console.log('HTTP Error', err),)
 }
-
 //mostrar mensaje caargando
 async presentLoading() {
   this.loading = await this.loadingController.create({
@@ -98,12 +87,11 @@ async presentLoading() {
   await this.loading.present();
 
 }
-
 //reto seleccionado 
 details(Challengs: any){
   let database = this.local2json('Challenges');
   database.set(Challengs);
-  this.router.navigateByUrl('/app/tabs/challenges/challenges-details/1');
+  this.router.navigateByUrl('/app/tabs/winners/winners-details');
 }
 
 
@@ -138,5 +126,6 @@ local2json(name) {
   };
 }
 
+  
 
 }

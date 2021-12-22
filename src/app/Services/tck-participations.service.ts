@@ -53,9 +53,13 @@ export class TckParticipationsService {
 
         //using backend
     Details(id_Challenges: detail) {
-  
       return this.http.post(`${this.baseUrl}/details`, id_Challenges)
     }
+            //using backend
+    ViewDetails(id_Challenges: detail) {
+    return this.http.post(`${this.baseUrl}/view`, id_Challenges)
+  }
+
   
 
 

@@ -141,10 +141,6 @@ export class SpeakerDetailPage implements OnInit {
 
   }
 
-
-
-  
-
   // nombre de la coleccion de datos
 local2json(name) {
   // asignamos un valor o recuperamos datos almacenados

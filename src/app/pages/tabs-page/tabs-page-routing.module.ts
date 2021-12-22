@@ -45,6 +45,7 @@ const routes: Routes = [
           }
         ]
       },
+
       {
         path: 'create',
         children: [
@@ -53,6 +54,39 @@ const routes: Routes = [
             loadChildren: () => import('../CreateChalleges/create.module').then(m => m.MapModule),
             canActivate : [AuthGuard]
           }
+        ]
+      },
+      {
+        path: 'listProducts',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../speaker-list/speaker-list.module').then(m => m.SpeakerListModule),
+           
+          }
+        ]
+      },
+      {
+        path: 'product',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../add-product/add-product.module').then(m => m.addProductModule),
+            canActivate : [AuthGuard]
+          }
+        ]
+      },
+      {
+        path: 'winners',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../validate-winner/validate-winner.module').then(m => m.validateWinnerModule)
+          },
+          {
+            path: 'winners-details',
+            loadChildren: () => import('../choose-winner/choose-winner.module').then(m => m.chooseWinnerModule)
+          },
         ]
       },
       {
