@@ -19,7 +19,7 @@ export class AuthService {
 
   private baseUrl = environment.baseUrl + "/users";
 
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router, private alertCtrl: AlertController,  private http: HttpClient) {
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router, private alertCtrl: AlertController, private http: HttpClient) {
 
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
@@ -55,10 +55,10 @@ export class AuthService {
   }
 
   //registro correo
-  register(email: string, password: string):Observable<any>{
+  register(email: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUrl}`, {
-      displayName: "", 
-      password:password,
+      displayName: "",
+      password: password,
       email: email,
       role: "user"
     });
@@ -77,9 +77,6 @@ export class AuthService {
     return user.emailVerified === true ? true : false;
   }
 
-
-
-
   //login normal
   async login(email: string, password: string): Promise<Users> {
     try {
@@ -88,6 +85,10 @@ export class AuthService {
       const token = await user.getIdTokenResult();
       sessionStorage.setItem('role', token.claims.role);
       this.updateUserData(user);
+
+      if(!this.IsEmailVerified(user))
+        await this.sendVerificationEmail();
+        
       return user;
     } catch (error) {
 
@@ -127,9 +128,6 @@ export class AuthService {
     console.log(result);
   }
 
-
-
-
   //salir 
   async logout(): Promise<void> {
     try {
@@ -152,8 +150,5 @@ export class AuthService {
     return userRef.set(data, { merge: true })
 
   }
-
-
-
 
 }

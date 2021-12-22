@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-export function isAuthorized(opts: { hasRole: Array<'admin' | 'user' >, allowSameUser?: boolean }) {
+export function isAuthorized(opts: { hasRole: Array<'admin' | 'user' | 'validator' >, allowSameUser?: boolean }) {
    return (req: Request, res: Response, next: Function) => {
        const { role, email, uid } = res.locals
        const { id } = req.params
