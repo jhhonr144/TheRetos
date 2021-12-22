@@ -7,7 +7,7 @@ import { ActionSheetController, AlertController, LoadingController } from '@ioni
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { TicketsService } from '../../Services/tickets.service';
 import { AuthService } from './../../Services/auth.service';
-import { Answer } from './../../model/Answer.model';
+import { Answer } from './../../model/answer.model';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
