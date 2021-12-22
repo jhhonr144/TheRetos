@@ -7,7 +7,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app'
 import { switchMap } from 'rxjs/operators';
-
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -16,9 +17,9 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService {
   public user$: Observable<Users>
 
+  private baseUrl = environment.baseUrl + "/users";
 
-
-  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router, private alertCtrl: AlertController) {
+  constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router, private alertCtrl: AlertController, private http: HttpClient) {
 
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
@@ -54,26 +55,13 @@ export class AuthService {
   }
 
   //registro correo
-  async register(email: string, password: string): Promise<Users> {
-    try {
-      const { user } = await this.afAuth.createUserWithEmailAndPassword(email, password);
-      //enviar correo de verificacion     
-      await this.sendVerificationEmail();
-      return user;
-    } catch (error) {
-      var errorCode = error.code;
-      if (errorCode === 'auth/weak-password') {
-        this.showAlert('Opps !', '', 'La contraseña debe tener al menos 6 caracteres')
-      }
-      if (errorCode === 'auth/email-already-in-use') {
-        this.showAlert('Opps !', '', 'La dirección de correo electrónico ya está en uso por otra cuenta')
-      }
-      if (errorCode === 'auth/network-request-failed') {
-        this.showAlert('Opps !', '', 'Se ha producido un error de red (como tiempo de espera, conexión interrumpida o host inaccesible).')
-      }
-      console.log('Error-->', error);
-
-    }
+  register(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}`, {
+      displayName: "",
+      password: password,
+      email: email,
+      role: "user"
+    });
   }
 
   async sendVerificationEmail(): Promise<void> {
@@ -89,14 +77,18 @@ export class AuthService {
     return user.emailVerified === true ? true : false;
   }
 
-
-
-
   //login normal
   async login(email: string, password: string): Promise<Users> {
     try {
+      await this.afAuth.setPersistence('session');
       const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
+      const token = await user.getIdTokenResult();
+      sessionStorage.setItem('role', token.claims.role);
       this.updateUserData(user);
+
+      if(!this.IsEmailVerified(user))
+        await this.sendVerificationEmail();
+        
       return user;
     } catch (error) {
 
@@ -136,9 +128,6 @@ export class AuthService {
     console.log(result);
   }
 
-
-
-
   //salir 
   async logout(): Promise<void> {
     try {
@@ -161,8 +150,5 @@ export class AuthService {
     return userRef.set(data, { merge: true })
 
   }
-
-
-
 
 }

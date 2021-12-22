@@ -15,9 +15,8 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
+import { AuthTokenHttpInterceptorProvider } from './Services/http-interceptors/auth-token.interceptor';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-
-
 
 @NgModule({
   imports: [
@@ -37,7 +36,12 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     })
   ],
   declarations: [AppComponent],
-  providers: [InAppBrowser, SplashScreen, StatusBar],
+  providers: [
+    InAppBrowser, 
+    SplashScreen, 
+    StatusBar,
+    AuthTokenHttpInterceptorProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
