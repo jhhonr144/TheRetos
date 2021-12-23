@@ -8,9 +8,9 @@ import * as productCtrl from './controllers/productCtrl';
 
 const TicketsRouters = Router();
 TicketsRouters.get('/',
-                    isAuthenticated, 
-                    isAuthorized({ hasRole: ['admin', 'user'] }), 
-                    ticketsCtrl.getAll);
+    isAuthenticated,
+    isAuthorized({ hasRole: ['admin', 'user'] }),
+    ticketsCtrl.getAll);
 TicketsRouters.get('/get/:uid', ticketsCtrl.get);
 TicketsRouters.post('/', ticketsCtrl.add);
 TicketsRouters.put('/:id', ticketsCtrl.update);
@@ -25,14 +25,26 @@ ParticipationsRouters.post('/', participateCtrl.add);
 ParticipationsRouters.put('/:id', participateCtrl.update);
 
 const UserRouters = Router();
-UserRouters.post('/', userCtrl.create);
+UserRouters.post('/',
+    isAuthenticated,
+    isAuthorized({ hasRole: ['admin'] }),
+    userCtrl.create);
 
 const ProductsRouters = Router();
 ProductsRouters.get('/', productCtrl.getAll);
-ProductsRouters.put('/:id', productCtrl.get);
-ProductsRouters.post('/', productCtrl.add);
-ProductsRouters.put('/:id', productCtrl.remove);
-ProductsRouters.put('/:id', productCtrl.update);
+ProductsRouters.get('/:id', productCtrl.get);
+ProductsRouters.post('/',
+    isAuthenticated,
+    isAuthorized({ hasRole: ['admin'] }),
+    productCtrl.add);
+ProductsRouters.delete('/:id',
+    isAuthenticated,
+    isAuthorized({ hasRole: ['admin'] }),
+    productCtrl.remove);
+ProductsRouters.put('/:id',
+    isAuthenticated,
+    isAuthorized({ hasRole: ['admin'] }),
+    productCtrl.update);
 
 // Export the base-router
 const baseRouter = Router();
