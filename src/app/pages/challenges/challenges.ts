@@ -9,6 +9,7 @@ import { ConferenceData } from '../../providers/conference-data';
 import { NewChallengsService } from '../../Services/new-challengs.service';
 
 import { TicketsService } from '../../Services/tickets.service';
+import { Role } from '../../model/role';
 
 @Component({
   selector: 'page-schedule',
@@ -17,19 +18,17 @@ import { TicketsService } from '../../Services/tickets.service';
 })
 export class SchedulePage implements OnInit {
 
-  Challengs : Challengs[]=[];
+  Challengs: Challengs[] = [];
   ios: boolean;
   dayIndex = 0;
   queryText = '';
   segment = 'all';
-  loading :any;
- data: any;
+  loading: any;
+  data: any;
+  roleAutorized:boolean;
+  Tickets = []
 
- Tickets = []
-
-
-
-  constructor(   
+  constructor(
     private AuthService: AuthService,
     public loadingController: LoadingController,
     public alertCtrl: AlertController,
@@ -45,98 +44,97 @@ export class SchedulePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    
     this.ios = this.config.get('mode') === 'ios';
     this.getChallengs();
+    this.roleAutorized = sessionStorage.getItem('role') == Role.Admin;
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.AuthService.user$.subscribe(
       datos => {
-      this.slcTicket(datos.uid)
-    }
+        this.slcTicket(datos.uid)
+      }
     );
-
   }
+
   //consultamos retos
   getChallengs() {
-    this.presentLoading().then(()=>{
-      this.database.getChallengs<Challengs>().subscribe(res =>{
+    this.presentLoading().then(() => {
+      this.database.getChallengs<Challengs>().subscribe(res => {
         this.Challengs = res;
         this.loading.dismiss();
-      }   );
-     
+      });
     });
     //seleccionamos usuario
     this.AuthService.user$.subscribe(
       datos => {
-      this.slcTicket(datos.uid)
-    }
+        this.slcTicket(datos.uid)
+      }
     );
-  //seleccionamos retos   
-}
+    //seleccionamos retos   
+  }
 
-//seleccionar ticket
-slcTicket(uid){  
-  this.serTicket.getTickets(uid)
-  .subscribe(data => {
-         
-          this.Tickets = [data]    
-          let database = this.local2json('Ticket');
-          database.set(data);
-  },
-  err => console.log('HTTP Error', err),)
-}
+  //seleccionar ticket
+  slcTicket(uid) {
+    this.serTicket.getTickets(uid)
+      .subscribe(data => {
 
-//mostrar mensaje caargando
-async presentLoading() {
-  this.loading = await this.loadingController.create({
-    cssClass: 'my-custom-class',
-    message: 'Estamos preparando todo para ti !...',
+        this.Tickets = [data]
+        let database = this.local2json('Ticket');
+        database.set(data);
+      },
+        err => console.log('HTTP Error', err))
+  }
 
-  });
-  await this.loading.present();
+  //mostrar mensaje caargando
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Estamos preparando todo para ti !...',
 
-}
+    });
+    await this.loading.present();
 
-//reto seleccionado 
-details(Challengs: any){
-  let database = this.local2json('Challenges');
-  database.set(Challengs);
-  this.router.navigateByUrl('/app/tabs/challenges/challenges-details/1');
-}
+  }
+
+  //reto seleccionado 
+  details(Challengs: any) {
+    let database = this.local2json('Challenges');
+    database.set(Challengs);
+    this.router.navigateByUrl('/app/tabs/challenges/detail/1');
+  }
 
 
-// nombre de la coleccion de datos
-local2json(name) {
-  // asignamos un valor o recuperamos datos almacenados
-  let DB = localStorage.getItem(name)
-    ? JSON.parse(localStorage.getItem(name))
-    : [];
+  // nombre de la coleccion de datos
+  local2json(name) {
+    // asignamos un valor o recuperamos datos almacenados
+    let DB = localStorage.getItem(name)
+      ? JSON.parse(localStorage.getItem(name))
+      : [];
 
-  /* metodos */
-  return {
-    // obtener todos los datos de la coleccion
-    get: () => {
-      return DB;
-    },
-    // ingresar nuevos datos
-    push: (obj) => {
-      DB.push(obj);
-      localStorage.setItem(name, JSON.stringify(DB));
-    },
-    // ingresar una nueva coleccion
-    set: (colection) => {
-      DB = colection;
-      localStorage.setItem(name, JSON.stringify(DB));
-    },
-    // eliminar todos los datos de la coleccion
-    delete: () => {
-      DB = [];
-      localStorage.setItem(name, JSON.stringify(DB));
-    },
-  };
-}
+    /* metodos */
+    return {
+      // obtener todos los datos de la coleccion
+      get: () => {
+        return DB;
+      },
+      // ingresar nuevos datos
+      push: (obj) => {
+        DB.push(obj);
+        localStorage.setItem(name, JSON.stringify(DB));
+      },
+      // ingresar una nueva coleccion
+      set: (colection) => {
+        DB = colection;
+        localStorage.setItem(name, JSON.stringify(DB));
+      },
+      // eliminar todos los datos de la coleccion
+      delete: () => {
+        DB = [];
+        localStorage.setItem(name, JSON.stringify(DB));
+      },
+    };
+  }
 
 
 }

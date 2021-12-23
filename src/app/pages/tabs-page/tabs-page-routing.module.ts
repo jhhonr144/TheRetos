@@ -3,7 +3,8 @@ import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { TabsPage } from './tabs-page';
 import { SchedulePage } from '../challenges/challenges';
 import { AuthGuard } from '../../shared/auth.guard';
-
+import { AuthorizedGuard } from '../../shared/authorized.guard';
+import { Role } from '../../model/role';
 
 const routes: Routes = [
   {
@@ -16,15 +17,28 @@ const routes: Routes = [
           {
             path: '',
             component: SchedulePage,
-            
-            canActivate : [AuthGuard]
-            
-            
+            canActivate: [AuthorizedGuard],
+            data: { roles: [Role.Admin, Role.User ] }
+          },
+          {
+            path: 'create',
+            children: [
+              {
+                path: '',
+                loadChildren: () => import('../CreateChalleges/create.module').then(m => m.MapModule),
+                canActivate: [AuthorizedGuard],
+                data: { roles: [Role.Admin] }
+              }
+            ]
           },
           {
             path: 'session/:sessionId',
             loadChildren: () => import('../session-detail/session-detail.module').then(m => m.SessionDetailModule),
             canActivate : [AuthGuard]
+          },
+          {
+            path: 'detail/:speakerId',
+            loadChildren: () => import('../challenges-details/speaker-detail.module').then(m => m.SpeakerDetailModule)
           }
         ]
       },
@@ -38,21 +52,6 @@ const routes: Routes = [
           {
             path: 'session/:sessionId',
             loadChildren: () => import('../session-detail/session-detail.module').then(m => m.SessionDetailModule)
-          },
-          {
-            path: 'challenges-details/:speakerId',
-            loadChildren: () => import('../challenges-details/speaker-detail.module').then(m => m.SpeakerDetailModule)
-          }
-        ]
-      },
-
-      {
-        path: 'create',
-        children: [
-          {
-            path: '',
-            loadChildren: () => import('../CreateChalleges/create.module').then(m => m.MapModule),
-            canActivate : [AuthGuard]
           }
         ]
       },
@@ -62,17 +61,19 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () => import('../speaker-list/speaker-list.module').then(m => m.SpeakerListModule),
-           
-          }
-        ]
-      },
-      {
-        path: 'product',
-        children: [
+            canActivate: [AuthorizedGuard],
+            data: { roles: [Role.Admin, Role.User ] }
+          },
           {
-            path: '',
-            loadChildren: () => import('../add-product/add-product.module').then(m => m.addProductModule),
-            canActivate : [AuthGuard]
+            path: 'product',
+            children: [
+              {
+                path: '',
+                loadChildren: () => import('../add-product/add-product.module').then(m => m.addProductModule),
+                canActivate: [AuthorizedGuard],
+                data: { roles: [Role.Admin ] }
+              }
+            ]
           }
         ]
       },
@@ -81,11 +82,15 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('../validate-winner/validate-winner.module').then(m => m.validateWinnerModule)
+            loadChildren: () => import('../validate-winner/validate-winner.module').then(m => m.validateWinnerModule),
+            canActivate: [AuthorizedGuard],
+            data: { roles: [Role.Admin] }
           },
           {
             path: 'winners-details',
-            loadChildren: () => import('../choose-winner/choose-winner.module').then(m => m.chooseWinnerModule)
+            loadChildren: () => import('../choose-winner/choose-winner.module').then(m => m.chooseWinnerModule),
+            canActivate: [AuthorizedGuard],
+            data: { roles: [Role.Admin] }
           },
         ]
       },

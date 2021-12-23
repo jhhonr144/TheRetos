@@ -33,16 +33,6 @@ export class AppComponent implements OnInit {
       icon: 'flame'
     },
     {
-      title: 'Crear Reto',
-      url: '/app/tabs/create',
-      icon: 'bulb'
-    },
-    {
-      title: 'Agregar Productos',
-      url: '/app/tabs/product',
-      icon: 'bag-add'
-    },
-    {
       title: 'Validar Ganadores',
       url: '/app/tabs/winners',
       icon: 'trophy'

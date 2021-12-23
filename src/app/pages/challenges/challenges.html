@@ -3,7 +3,7 @@
     <ion-buttons *ngIf="!showSearchbar" slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-segment *ngIf="ios" [(ngModel)]="segment" >
+    <ion-segment *ngIf="ios" [(ngModel)]="segment">
       <ion-segment-button value="all">
         All
       </ion-segment-button>
@@ -13,15 +13,18 @@
     </ion-segment>
     <ion-title>TheRetos</ion-title>
 
-    
-    
-    <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText"  (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
+
+
+    <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText"
+      (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
     <ion-buttons slot="end">
 
-  
-      <h4 *ngFor="let tickets of Tickets">  <ion-icon color="warning"  name="ticket-outline"></ion-icon> {{tickets.total_ticket}}</h4>
 
-  
+      <h4 *ngFor="let tickets of Tickets">
+        <ion-icon color="warning" name="ticket-outline"></ion-icon> {{tickets.total_ticket}}
+      </h4>
+
+
       <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
@@ -34,7 +37,7 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar *ngIf="!ios">
-    <ion-segment [(ngModel)]="segment" >
+    <ion-segment [(ngModel)]="segment">
       <ion-segment-button value="all">
         Todos
       </ion-segment-button>
@@ -43,13 +46,13 @@
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content fullscreen>
   <ion-list>
 
-
-    <ion-item  button detail="true" *ngFor="let challeng of Challengs" >
+    <ion-item button detail="true" *ngFor="let challeng of Challengs">
       <ion-avatar slot="start" (click)="details(challeng)">
         <ion-icon name="flash"></ion-icon>
       </ion-avatar>
@@ -60,8 +63,13 @@
 
       </ion-label>
     </ion-item>
-    
 
   </ion-list>
-  
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="roleAutorized">
+    <ion-fab-button routerLink="create" color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>
