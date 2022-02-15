@@ -1,0 +1,63 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Tickets</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen >
+
+  <ion-card>
+    <ion-item href="#" class="ion-activated">
+      <ion-icon name="ticket-outline" slot="start" color="warning"></ion-icon>
+      <ion-label>
+        <ion-text color="default">
+          <h2>Total Tickets</h2>
+        </ion-text>
+      </ion-label>
+      <ion-note color="default" slot="end"> <h3>500</h3> </ion-note>
+    </ion-item>
+
+    <ion-card-content>
+
+      <ion-list>
+        <ion-list-header>Movimientos</ion-list-header>
+        <ion-item>
+          <ion-icon color="secondary" slot="start" name="gift-outline"></ion-icon>
+          <ion-label>
+            <h3>23/01/2022</h3>
+            <p>Regalo</p>
+          </ion-label>
+          <ion-note color="danger" slot="end"><h2>-100</h2></ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-icon color="tertiary" slot="start" name="game-controller-outline"></ion-icon>
+          <ion-label>
+            <h3>03/01/2022</h3>
+            <p>Juego</p>
+          </ion-label>
+          <ion-note color="danger" slot="end"><h2>-400</h2></ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-icon color="success" slot="start" name="card-outline"></ion-icon>
+          <ion-label>
+            <h3>24/12/2021</h3>
+            <p>Compra de tickets</p>
+          </ion-label>
+          <ion-note slot="end" color="success"><h2>+1000</h2></ion-note>
+        </ion-item>
+      </ion-list>    
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="offers" color="danger">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

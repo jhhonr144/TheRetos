@@ -38,6 +38,11 @@ export class AppComponent implements OnInit {
       icon: 'trophy'
     },
     {
+      title: 'Tickets',
+      url: '/app/tabs/payment',
+      icon: 'card'
+    },
+    {
       title: 'Conocenos',
       url: '/app/tabs/about',
       icon: 'information-circle'
