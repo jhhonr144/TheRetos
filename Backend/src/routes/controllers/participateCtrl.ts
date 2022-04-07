@@ -57,6 +57,8 @@ function handleError(res: Response, err: any) {
     return res.status(500).send({ message: `${err.code} - ${err.message}` });
 }
 
+
+//cuantas ganancias 
 export async function getDetails(req: Request, res: Response) {
     const id_Challenges = req.body.id_Challenges
     const result = await admin.firestore().collection(collection).where("id_Challenges","==",id_Challenges).get();
@@ -122,6 +124,7 @@ export async function participate(req: Request, res) {
         const queryy = await admin.firestore().collection(collection3).where("uid","==",uid);
         const query2 = await admin.firestore().collection(collection2).where("id_challengs","==",id_Challenges).get();
         const query3 = await admin.firestore().collection(collection).where("id_Challenges","==",id_Challenges).get();
+        
            //tenemos los dos Id a comparar 
         const validations = await admin.firestore().collection(collection).where("id_Challenges","==",id_Challenges).where("uid","==",uid).get();
 
@@ -183,7 +186,7 @@ export async function participate(req: Request, res) {
 
                       const resp = await queryy.limit(1).get();
                       var tk_id= !resp.empty ? resp.docs[0].id:"";
-                      console.log(tk_id)
+             
 
  
                       const newItem1: Participate = {...person_tck};

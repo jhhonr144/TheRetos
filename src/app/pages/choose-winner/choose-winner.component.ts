@@ -1,7 +1,8 @@
+import { WinnersService } from './../../Services/winners.service';
 import { of } from 'rxjs';
 import { TckParticipationsService } from './../../Services/tck-participations.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConferenceData } from '../../providers/conference-data';
 import { ActionSheetController, AlertController, LoadingController } from '@ionic/angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -11,12 +12,40 @@ import { Answer } from './../../model/answer.model';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
+interface User {
+  id: number;
+  first: string;
+  last: string;
+}
+
 @Component({
   selector: 'app-choose-winner',
   templateUrl: './choose-winner.component.html',
   styleUrls: ['./choose-winner.component.scss'],
 })
 export class ChooseWinnerComponent implements OnInit {
+  selectedsArray = [];
+  selectwinners = [];
+  
+
+  users: User[] = [
+    {
+      id: 1,
+      first: 'Alice',
+      last: 'Smith',
+    },
+    {
+      id: 2,
+      first: 'Bob',
+      last: 'Davis',
+    },
+    {
+      id: 3,
+      first: 'Charlie',
+      last: 'Rosenburg',
+    }
+  ];
+
   NewChallengs: Answer = {
     answer: ''
   }
@@ -37,9 +66,13 @@ export class ChooseWinnerComponent implements OnInit {
 
   mystring: any;
   elementSrc: any[] = [];
+  resultt: any[];
+  alertCtrl: any;
+  ganancias: number;
 
   constructor(private AuthService: AuthService,
     public Participate: TckParticipationsService,
+    public winners: WinnersService,
     public alertController: AlertController,
     private dataProvider: ConferenceData,
     private route: ActivatedRoute,
@@ -48,7 +81,9 @@ export class ChooseWinnerComponent implements OnInit {
     public inAppBrowser: InAppBrowser,
     public loadingController: LoadingController,
     public serTicket: TicketsService,
-    public sanitizer: DomSanitizer) { }
+    public sanitizer: DomSanitizer,
+    public router: Router,
+    ) { }
 
   ngOnInit() {
     this.getChallengesDatails()
@@ -68,6 +103,11 @@ export class ChooseWinnerComponent implements OnInit {
         }
       }
     });
+  }
+
+  onItemSelection(item, index:number): void {
+    this.resultt = this.selectedsArray;
+   
   }
 
   openExternalUrl(url: string) {
@@ -228,13 +268,13 @@ export class ChooseWinnerComponent implements OnInit {
       answer: answer
 
     }
-    console.log(Participate)
+  
 
     this.presentLoading().then(() => {
 
       this.Participate.validationParticipate(Participate).subscribe(
         datos => {
-          console.log(datos)
+         
           this.loading.dismiss();
           if (datos == "TKBLOQUEADO") {
 
@@ -315,10 +355,9 @@ export class ChooseWinnerComponent implements OnInit {
     }
     this.Participate.ViewDetails(detail)
       .subscribe(data => {
-
+      
         this.Viewdetails = data
 
-        // console.log("https://www.youtube.com/embed/"+mystring)
         let i = 0
         for (let dato of this.Viewdetails) {
 
@@ -340,14 +379,144 @@ export class ChooseWinnerComponent implements OnInit {
           }
 
           this.video.push(property);
+          console.log(this.video)
           this.elementSrc[i] = this.sanitizer.bypassSecurityTrustResourceUrl(property.answer);
-          console.log(this.video);
+       
           i++;
         }
 
       },
         err => console.log('HTTP Error', err))
   }
+
+
+  //evento para seleccionar ganadores
+  myChange($event,id) {
+   
+ 
+    let estado = $event.detail.checked
+
+    if(estado) {
+      this.selectwinners.push(id)
+      this.ganancias = Number(this.details[0].count  )  /    Number(this.selectwinners.length)
+     }
+    else
+    this.removeItemFromArr(this.selectwinners,id)
+
+ }
+ //remover seleccionados
+ removeItemFromArr ( arr, item ) {
+  var i = arr.indexOf( item );
+
+
+  if ( i !== -1 ) {
+      arr.splice( i, 1 );
+  }
+}
+
+  async presentConfirm() {
+   
+    if(this.selectwinners.length>0){
+      const alert = await this.alertController.create({
+        cssClass: 'my-custom-class',
+        header: '¡Ganadores Theretos!',
+        message: 'Estas seguro de premiar los participantes seleccionados !!!',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: (blah) => {
+              console.log('Confirm Cancel: blah');
+            }
+          }, {
+            text: 'De Una',
+            handler: () => {
+              
+              this.ganancias = Number(this.details[0].count  )  /    Number(this.selectwinners.length)
+              this.presentConfirm2()
+
+            }
+          }
+        ]
+      });
+      await alert.present();
+    
+    }
+
+  
+}
+
+async presentConfirm2() {
+   
+  if(this.selectwinners.length>0){
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '¡Ganancias!',
+      message: 'Estas seguro de premiar los participantes seleccionados con :'+ this.ganancias +
+      ' Tickets',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'De Una',
+          handler: () => {
+
+              let enviar ={
+              id_Challenges :  this.id_Challenges.id_challengs,
+              uids:this.selectwinners
+              }       
+              this.sendWinners(enviar) 
+
+          }}]});
+    await alert.present();
+  
+  }
+}
+
+sendWinners(enviar){
+  this.winners.validationaWard(enviar).subscribe(
+    datos=>{
+      if(datos == "TKBLOQUEADO"){
+
+        this.result("Jummm algo anda mal!","Problemas en tus tickets -.-")
+
+      }if (datos=="CANCELAR") {
+        this.result("Jummm algo anda mal","Este Participante ya fue Premiado")
+        
+      }
+      if (datos=="GANO") {
+        this.result("Tickets Enviados","Todo Correcto")
+        this.router.navigate(['/app/tabs/challenges'])
+        
+      }
+
+    }
+  )
+}
+
+async result2(title:string,body: string) {
+
+  const alert = await this.alertController.create({
+    cssClass: 'my-custom-class',
+    header: title,
+    message: body,
+    buttons: [
+      {
+        text: 'Ok',
+        handler: () => {
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
 
 
 }

@@ -22,49 +22,70 @@
     
   </div>
 
-  <div *ngFor="let challenges of Challenges"  class="ion-padding speaker-detail">
-    <p>{{challenges.description}}</p>
- <!--    <ion-item>
-      <ion-label>Categoria</ion-label>
-      <ion-label slot="end" color="success">
-        <ion-chip color="twitter" button>
-          <ion-icon name="sparkles-outline"></ion-icon>
-          <ion-label>{{challenges.category}}</ion-label>
-        </ion-chip>
-        </ion-label>
-    </ion-item> -->
-    <ion-item *ngFor="let details of details">
-      <ion-label>Tickets Acumulados</ion-label>
-      <ion-label slot="end" color="warning"><ion-icon name="ticket-outline"></ion-icon>{{details.count}}</ion-label>
-    </ion-item>
-
+  <ion-list>
+    <div *ngFor="let challenges of Challenges"  class="ion-padding speaker-detail">
+      
+   <!--   
+     <p>{{challenges.description}}</p>
     <ion-item>
-      <ion-label>Tickets para Participar</ion-label>
-      <ion-label slot="end" color="success">{{challenges.token_in}}</ion-label>
-    </ion-item>
-    <ion-item *ngFor="let details of details">
-      <ion-label>Ver Participantes</ion-label>
-      <ion-label slot="end" color="secundary"><ion-icon name="happy-outline"></ion-icon>{{details.players}}/{{challenges.person_limit}}</ion-label>
-    </ion-item>
-
-
-  </div>
-
-  <ion-card *ngFor="let view of video">
-    <ion-card-header>
-      <ion-card-subtitle>{{view.date_Participate}}</ion-card-subtitle>
-      <div class="video-container">
-        <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(view.answer)" title="YouTube video player" class="iframe" scrolling="yes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </ion-card-header>
+        <ion-label>Categoria</ion-label>
+        <ion-label slot="end" color="success">
+          <ion-chip color="twitter" button>
+            <ion-icon name="sparkles-outline"></ion-icon>
+            <ion-label>{{challenges.category}}</ion-label>
+          </ion-chip>
+          </ion-label>
+      </ion-item> -->
+      <ion-item *ngFor="let details of details">
+        <ion-label>Tickets Acumulados</ion-label>
+        <ion-label slot="end" color="warning"><ion-icon name="ticket-outline"></ion-icon>{{details.count}}</ion-label>
+      </ion-item>
   
-    <ion-card-content>
-      <div class="ion-padding">
-        <ion-button type="submit" expand="block">Ganador</ion-button>
-      </div>
-    </ion-card-content>
-  </ion-card>
+      <ion-item>
+        <ion-label>Tickets para Participar</ion-label>
+        <ion-label slot="end" color="success">{{challenges.token_in}}</ion-label>
+      </ion-item>
+      <ion-item *ngFor="let details of details">
+        <ion-label>Ver Participantes</ion-label>
+        <ion-label slot="end" color="secundary"><ion-icon name="happy-outline"></ion-icon>{{details.players}}/{{challenges.person_limit}}</ion-label>
+      </ion-item>
   
+  
+    </div>
+  
+ 
 
-  
+  </ion-list>
+
+
+
+
+<ion-card class="wrapper" *ngFor="let view of video">
+  <ion-item>
+    <ion-card-subtitle>{{view.date_Participate}}</ion-card-subtitle>
+    <ion-icon name="happy-outline" slot="start"></ion-icon>
+    <ion-button fill="outline" slot="end"  color="warning" >
+          
+  <ion-item>
+    <ion-label >Escoger</ion-label>
+    <ion-toggle value="view.uid"  color="warning" (ionChange)="myChange($event,view.uid)"   ></ion-toggle>
+  </ion-item>
+    </ion-button>
+  </ion-item>
+
+  <ion-card-content>
+    <div class="video-container">
+      <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(view.answer)" title="YouTube video player" class="iframe" scrolling="yes" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </ion-card-content>
+</ion-card>
+
+
+
+<ion-button expand="block" fill="outline"  color="success" (click)="presentConfirm()">
+  <ion-icon slot="start" name="star"></ion-icon>
+Seleccionar Ganadores
+</ion-button>
+
+
 </ion-content>

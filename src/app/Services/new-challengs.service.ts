@@ -27,7 +27,7 @@ export class NewChallengsService {
 //Challenges
 
   getChallengs<tipo>():Observable<tipo[]>{
-    const ref = this.Firestore.collection<tipo>(this.bdChallengs);
-    return ref.valueChanges();
+    const re = this.Firestore.collection<tipo>(this.bdChallengs, ref => ref.where('state_game', '!=', "1"));
+    return re.valueChanges();
   }
 }

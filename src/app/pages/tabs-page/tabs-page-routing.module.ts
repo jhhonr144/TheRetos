@@ -18,7 +18,7 @@ const routes: Routes = [
             path: '',
             component: SchedulePage,
             canActivate: [AuthorizedGuard],
-            data: { roles: [Role.Admin, Role.User ] }
+          data: { roles: [Role.Admin, Role.User ] }
           },
           {
             path: 'create',
@@ -62,7 +62,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () => import('../speaker-list/speaker-list.module').then(m => m.SpeakerListModule),
             canActivate: [AuthorizedGuard],
-            data: { roles: [Role.Admin, Role.User ] }
+           data: { roles: [Role.Admin, Role.User ] }
           },
           {
             path: 'product',
@@ -84,7 +84,7 @@ const routes: Routes = [
             path: '',
             loadChildren: () => import('../validate-winner/validate-winner.module').then(m => m.validateWinnerModule),
             canActivate: [AuthorizedGuard],
-            data: { roles: [Role.Admin] }
+         data: { roles: [Role.Admin] }
           },
           {
             path: 'winners-details',

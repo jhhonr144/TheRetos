@@ -112,7 +112,7 @@ export class LoginPage {
   //redireccionar usuario si esta verificado o no
   private redirectUser(IsEmailVerified:Boolean) : void{
     if(IsEmailVerified){
- 
+      console.log("entro aca")
       this.router.navigate(['/app/tabs/challenges'])
       
     }else{
