@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ModalPage } from './modal/modal.page';
 
 @Component({
   selector: 'app-offers',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OffersPage implements OnInit {
 
-  constructor() { }
+  constructor(public modalController: ModalController) { }
 
-  ngOnInit() {
+  ngOnInit() { 
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalPage,
+      cssClass: 'my-custom-class',
+      swipeToClose: true,
+    });
+    return await modal.present();
   }
 
 }
