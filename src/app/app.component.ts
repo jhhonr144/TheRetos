@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Tickets',
-      url: '/app/tabs/payment',
+      url: '/app/tabs/tickets-management',
       icon: 'card'
     },
     {

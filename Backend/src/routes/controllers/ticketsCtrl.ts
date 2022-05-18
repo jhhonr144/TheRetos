@@ -49,6 +49,7 @@ export async function get(req: Request, res) {
 
 export async function add(req: Request, res: Response) {
     const newItem: Tickets = {...req.body};
+    newItem.date_creation = formatDate(new Date());
     const newDoc = await admin.firestore().collection(collection).add(newItem);
     //console.log(`Created a new ${collection}: ${newDoc.id}`);
     newItem.id = newDoc.id
@@ -84,4 +85,8 @@ export async function remove(req: Request, res: Response) {
 
 function handleError(res: Response, err: any) {
     return res.status(500).send({ message: `${err.code} - ${err.message}` });
+}
+
+function formatDate(date) {
+    return date.getFullYear() + '/' + (date.getMonth() + 1) +'/'+ + date.getDate()
 }

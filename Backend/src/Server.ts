@@ -16,4 +16,4 @@ admin.initializeApp({
 // Add APIs
 app.use('/api', BaseRouter);
  
-app.listen(5000);
+app.listen(3000);

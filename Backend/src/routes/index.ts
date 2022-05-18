@@ -62,6 +62,10 @@ UserRouters.post('/',
     isAuthenticated,
     isAuthorized({ hasRole: ['admin'] }),
     userCtrl.create);
+UserRouters.get('/',
+    isAuthenticated,
+    isAuthorized({ hasRole: ['admin'] }),
+    userCtrl.all);
 
 //gestion productos
 const ProductsRouters = Router();

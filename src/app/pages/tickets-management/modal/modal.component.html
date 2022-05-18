@@ -1,0 +1,22 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Agregar Tickets</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+      <ion-row>
+        <ion-col text-center>
+          <ion-item>
+            <ion-label>Cantidad de Tickets</ion-label>
+            <ion-input placeholder="placeholder" type="number"></ion-input>
+          </ion-item>
+          <ion-button (click)="close()" expand="block" color="danger">Guardar</ion-button>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+</ion-content>

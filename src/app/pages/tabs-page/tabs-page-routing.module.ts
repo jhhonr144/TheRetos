@@ -118,6 +118,10 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'tickets-management',
+        loadChildren: () => import('../tickets-management/tickets-management.module').then( m => m.TicketsManagementPageModule)
+      },
+      {
         path: '',
         redirectTo: '/app/tabs/challenges',
         pathMatch: 'full'

@@ -72,11 +72,12 @@ export class SignupPage {
 
   private redirectUser(IsEmailVerified: Boolean): void {
     this.saveTicket();
-    if (IsEmailVerified) {
-      this.router.navigate(['/app/tabs/create'])
-    } else {
-      this.router.navigate(['verify-email'])
-    }
+    this.router.navigate(['/app/tabs/create']);
+    // if (IsEmailVerified) {
+    //   this.router.navigate(['/app/tabs/create'])
+    // } else {
+    //   this.router.navigate(['verify-email'])
+    // }
   }
 
   saveTicket() {
