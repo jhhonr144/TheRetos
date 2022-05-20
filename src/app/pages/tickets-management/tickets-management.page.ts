@@ -15,17 +15,26 @@ export class TicketsManagementPage implements OnInit {
   constructor(public modalController: ModalController, private userService:UsersService) { }
 
   ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers(){
     this.userService.getAllUsers().subscribe(res => {
       this.users = res.users;
     });
   }
 
-  async presentModal() {
+  async presentModal(user:any) {
     const modal = await this.modalController.create({
       component: ModalComponent,
       cssClass: 'my-custom-class',
+      componentProps: {
+        'user': user,
+      }
     });
-    return await modal.present();
+    await modal.present();
+    await modal.onDidDismiss();
+    this.loadUsers();
   }
 
 }

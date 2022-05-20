@@ -68,11 +68,12 @@ export class LoginPage {
 
        if(user){
          //CheckEmail
-         this.uid = user.uid
-         console.log("uid "+ this.uid)
+         this.uid = user.uid;
+         this.router.navigate(['/app/tabs/challenges']);
+        //  console.log("uid "+ this.uid)
       
-         const IsEmailVerified = this.AuthService.IsEmailVerified(user)
-         this.redirectUser(IsEmailVerified)
+        //  const IsEmailVerified = this.AuthService.IsEmailVerified(user)
+        //  this.redirectUser(IsEmailVerified)
       }
 
       

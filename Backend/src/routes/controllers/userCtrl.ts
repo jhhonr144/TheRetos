@@ -58,6 +58,7 @@ const getTickets = async uid => {
     const query = await admin.firestore().collection(ticketsCollection)
                        .where("uid","==", uid)
                        .orderBy('date_creation','desc')
+                       .orderBy('hour_creation','desc')
                        .limit(1)
                        .get();
     let ticket = {};

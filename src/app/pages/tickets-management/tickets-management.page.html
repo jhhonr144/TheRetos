@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Gestión de Tickets</ion-title>
   </ion-toolbar>
   <ion-toolbar>
@@ -15,14 +18,14 @@
         <img src="../../../assets/img/avatars/1.png" />
       </ion-avatar>
       <ion-label>
-        <h2>{{user.displayName}}</h2>
-        <h3>I'm a big deal</h3>
+        <h2> <b>{{user.displayName}}</b> </h2>
+        <!-- <h3>I'm a big deal</h3> -->
         <p>{{user.tickets.total_ticket}}</p>
       </ion-label>
       <!-- <ion-button (click)="presentModal()" shape="round" color="success" size="small">
         <ion-icon name="add-outline"></ion-icon>
       </ion-button> -->
-      <ion-fab-button (click)="presentModal()" color="success" size="small">
+      <ion-fab-button (click)="presentModal(user)" color="success" size="small">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-item>

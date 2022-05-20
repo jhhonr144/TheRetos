@@ -83,9 +83,9 @@ export class AccountPage implements OnInit {
   slcTicket(uid){  
     this.database.getTickets(uid)
     .subscribe(data => {
-            console.log(data);  
+            // console.log(data);  
             this.tickets.push(data)
-            console.log(this.tickets)
+            // console.log(this.tickets)
        
     },
     err => console.log('HTTP Ticket', err),)

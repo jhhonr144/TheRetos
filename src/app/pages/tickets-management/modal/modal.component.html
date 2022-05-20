@@ -13,9 +13,9 @@
         <ion-col text-center>
           <ion-item>
             <ion-label>Cantidad de Tickets</ion-label>
-            <ion-input placeholder="placeholder" type="number"></ion-input>
+            <ion-input [(ngModel)]="ticket" placeholder="Digite los tickets" type="number" pattern="[0-9]+" min="0" onkeyup="if(this.value<0){this.value= this.value * -1}"></ion-input>
           </ion-item>
-          <ion-button (click)="close()" expand="block" color="danger">Guardar</ion-button>
+          <ion-button (click)="save(ticket)" expand="block" color="danger">Guardar</ion-button>
         </ion-col>
       </ion-row>
   </ion-grid>
