@@ -57,6 +57,7 @@ export class AccountPage implements OnInit {
   }
 
   logout(){
+    sessionStorage.removeItem('role');
     this.AuthSvc.logout();
     this.router.navigate(['/login']);
   }

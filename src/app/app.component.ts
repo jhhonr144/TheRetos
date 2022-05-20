@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
   dark = false;
   isUserAuthenticated: boolean = false;
   navStart: Observable<NavigationStart>;
+  role:any;
 
   constructor(
     private menu: MenuController,

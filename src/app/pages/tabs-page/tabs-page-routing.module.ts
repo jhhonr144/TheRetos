@@ -119,7 +119,9 @@ const routes: Routes = [
       },
       {
         path: 'tickets-management',
-        loadChildren: () => import('../tickets-management/tickets-management.module').then( m => m.TicketsManagementPageModule)
+        loadChildren: () => import('../tickets-management/tickets-management.module').then( m => m.TicketsManagementPageModule),
+        canActivate: [AuthorizedGuard],
+        data: { roles: [Role.Admin] }
       },
       {
         path: '',
