@@ -11,7 +11,7 @@ import { TicketsService } from '../../../Services/tickets.service';
 export class ModalComponent implements OnInit {
 
   @Input() user: any;
-  ticket:number;
+  ticket:number = 5;
 
   constructor(private modalController: ModalController, 
     private ticketsService: TicketsService,

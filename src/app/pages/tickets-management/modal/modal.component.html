@@ -13,7 +13,14 @@
         <ion-col text-center>
           <ion-item>
             <ion-label>Cantidad de Tickets</ion-label>
-            <ion-input [(ngModel)]="ticket" placeholder="Digite los tickets" type="number" pattern="[0-9]+" min="0" onkeyup="if(this.value<0){this.value= this.value * -1}"></ion-input>
+            <!-- <ion-input [(ngModel)]="ticket" placeholder="Digite los tickets" type="number" pattern="[0-9]+" min="0" onkeyup="if(this.value<0){this.value= this.value * -1}"></ion-input> -->
+            <ion-select [(ngModel)]="ticket">
+              <ion-select-option [value]="5">5 Tickets</ion-select-option>
+              <ion-select-option [value]="10">10 Tickets</ion-select-option>
+              <ion-select-option [value]="20">20 Tickets</ion-select-option>
+              <ion-select-option [value]="50">50 Tickets</ion-select-option>
+              <ion-select-option [value]="100">100 Tickets</ion-select-option>
+            </ion-select>
           </ion-item>
           <ion-button (click)="save(ticket)" expand="block" color="danger">Guardar</ion-button>
         </ion-col>
