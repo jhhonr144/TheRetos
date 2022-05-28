@@ -7,22 +7,8 @@ import { AuthGuard } from './shared/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/tutorial',
+    redirectTo: 'app/tabs/challenges',
     pathMatch: 'full'
-  },
-  {
-    path: 'account',
-    loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule),
-    canActivate : [AuthGuard]
-  },
-  {
-    path: 'support',
-    loadChildren: () => import('./pages/support/support.module').then(m => m.SupportModule)
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
-    canActivate : [AuthIsLoginGuard]
   },
   {
     path: 'signup',
@@ -50,6 +36,11 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     loadChildren: () => import('./pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule),
+    canActivate : [AuthIsLoginGuard]
   }
 
 ];

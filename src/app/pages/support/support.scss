@@ -1,13 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
 .support-logo {
   padding: 20px 0;
   min-height: 200px;
   text-align: center;
 }
+.wrapper{
+  margin-top: 50px;
+  font-size: 50px;
+  font-family: 'Bangers', cursive;  
 
+}
+.label{
+  color: rgb(0, 0, 0);
+  font-family: 'Montserrat', sans-serif;
+}
+.label2{
+  font-size: 17px;
+  color: rgb(0, 0, 0);
+  font-family: 'Montserrat', sans-serif;
+}
 .support-logo img {
   max-width: 150px;
 }
+.centrar{
+  margin-top: 10%;
+}
+
 
 .list {
   margin-bottom: 0;
+}
+*{
+    color: rgb(0, 0, 0);
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+
+ion-content {
+  flex-direction: column;
+  --padding-start: 5%;
+  --padding-end: 5%;
+  --background: var(--ion-color-primary-contrast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-item {
+  flex-direction: column;
+  --background: none;
+}
+
+.subtext {
+  color: var(--ion-color-primary-contrast);
+}
+
+ion-grid {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

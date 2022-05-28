@@ -1,66 +1,114 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
+<div *ngIf="isDesktop" class="desktop">
+  <ion-header mode="ios">
+    <ion-toolbar>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2">
+          <img src="./assets/img/Logo.png" class="logo ion-text-left">
+        </ion-col>
+        <ion-col size="10">
+          <div class="navbar" class="ion-text-right">
+            <ion-button fill="clear"  routerLink="/app/tabs/winners" routerDirection="root" routerLinkActive="active-link"
+              class="link">
+               <p class="color1">Inicio</p>
+               
+            </ion-button>
+            <ion-button fill="clear" routerLink="/app/tabs/about" routerDirection="root" routerLinkActive="active-link"
+              class="link">
+             <p class="color2">¿Como se juega?</p> 
+            </ion-button>
+            <ion-button fill="clear" routerLink="/app/tabs/listProducts" routerDirection="root" routerLinkActive="active-link"
+              class="link">
+              <p class="color3">Marketplace</p> 
+            </ion-button>
+            <ion-button fill="clear" routerLink="/app/tabs/support" routerDirection="root" routerLinkActive="active-link"
+            class="link">
+            <p class="color4">Contacto</p> 
+          </ion-button>
+          <ion-button fill="clear" routerLink="/app/tabs/account" routerDirection="root" routerLinkActive="active-link"
+          class="link">
+        <!--   <p class="color5">| Mi Cuenta</p>  -->
+        <ion-icon name="person" color="primary"> |  Mi Cuenta</ion-icon>
 
-    <ion-title>Iniciar Sesion</ion-title>
-  </ion-toolbar>
-</ion-header>
+        <p class="color5">| Mi Cuenta</p> 
+        </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+ 
+  <ion-router-outlet class="desktop-wrapper"></ion-router-outlet>
+ 
 
-<ion-content>
-  <div class="login-logo">
-    <img src="assets/img/theRetos.PNG" alt="Ionic logo">
-  </div>
+</div>
 
-  <form #loginForm="ngForm" novalidate>
-    <ion-list>
-      <ion-item>
-        <ion-label position="stacked" color="primary">Correo</ion-label>
-        <ion-input [(ngModel)]="login.email" name="email" type="text" #email="ngModel" spellcheck="false" autocapitalize="off"
-          required>
-        </ion-input>
-      </ion-item>
+<ion-grid>
+  <ion-row>
+    <ion-col class="centrar" size="4.5">
+      <div class="wrapper" text-left>Acepta el reto de jugar y ganar </div>
+    </ion-col>
+    <ion-col size="6">
+      <ion-list lines="full" class="ion-no-margin">
+        <p>⠀⠀</p>
+        <div >
+          <div class="form">
+            <ion-title>Iniciar Sesion</ion-title>
+            <form #loginForm="ngForm" novalidate>
+              <ion-list>
+                <ion-item>
+                  <ion-label position="stacked" color="primary">Correo</ion-label>
+                  <ion-input [(ngModel)]="login.email" name="email" type="text" #email="ngModel" spellcheck="false" autocapitalize="off"
+                    required>
+                  </ion-input>
+                </ion-item>
+          
+                <ion-text color="danger">
+                  <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
+                    Ingresas Correo
+                  </p>
+                </ion-text>
+          
+                <ion-item>
+                  <ion-label position="stacked" color="primary">Contraseña</ion-label>
+                  <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required>
+                  </ion-input>
+                </ion-item>
+          
+                <ion-text color="danger">
+                  <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
+                   Ingresar Contraseña
+                  </p>
+                </ion-text>
+              </ion-list>
+          
+              <ion-row>
+                <ion-col>
+                  <ion-button (click)="onLogin(loginForm)" type="submit" expand="block">Entrar</ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button (click)="onSignup()" color="light" expand="block">Registrarse</ion-button>
+                </ion-col>
+              </ion-row>
+              <ion-button (click)="onLoginGoogle()" color="danger" expand="block">Google</ion-button>
+          
+          
+              <ion-row>
+             
+                <ion-col>
+                  <p class="ion-text-end" >
+                    <a routerLink="/forgot-password" color="primary">Olvido su Contraseña?</a>
+                  </p>
+               
+                </ion-col>
+              </ion-row>
+            </form>
+          </div>
+        </div>
 
-      <ion-text color="danger">
-        <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
-          Ingresas Correo
-        </p>
-      </ion-text>
-
-      <ion-item>
-        <ion-label position="stacked" color="primary">Contraseña</ion-label>
-        <ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required>
-        </ion-input>
-      </ion-item>
-
-      <ion-text color="danger">
-        <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
-         Ingresar Contraseña
-        </p>
-      </ion-text>
-    </ion-list>
-
-    <ion-row>
-      <ion-col>
-        <ion-button (click)="onLogin(loginForm)" type="submit" expand="block">Entrar</ion-button>
-      </ion-col>
-      <ion-col>
-        <ion-button (click)="onSignup()" color="light" expand="block">Registrarse</ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-button (click)="onLoginGoogle()" color="danger" expand="block">Google</ion-button>
 
 
-    <ion-row>
-   
-      <ion-col>
-        <p class="ion-text-end" >
-          <a routerLink="/forgot-password" color="primary">Olvido su Contraseña?</a>
-        </p>
-     
-      </ion-col>
-    </ion-row>
-  </form>
 
-</ion-content>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

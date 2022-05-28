@@ -10,6 +10,7 @@ import { UserData } from '../../providers/user-data';
 
 import { UserOptions } from '../../interfaces/user-options';
 import { LoadingController } from '@ionic/angular';
+import { ScreensizeService } from '../../Services/screensize.service';
 
 
 
@@ -21,7 +22,8 @@ import { LoadingController } from '@ionic/angular';
 export class SignupPage {
   signup: UserOptions = { name: '', email: '', password: '' };
   uid: string
-
+  isDesktop: boolean;
+ 
   NewTickets: Tickets = {
     total_money: 0,
     date_creation: '',
@@ -42,9 +44,20 @@ export class SignupPage {
     public router: Router,
     public userData: UserData,
     public loadingController: LoadingController,
-    private AuthService: AuthService
+    private AuthService: AuthService,
+    private screensizeService: ScreensizeService
 
-  ) { }
+  ) { 
+    
+    this.screensizeService.isDesktopView().subscribe(isDesktop => {
+      if (this.isDesktop && !isDesktop) {
+        // Reload because our routing is out of place
+        window.location.reload();
+      }
+ 
+      this.isDesktop = isDesktop;
+    });
+  }
 
   async onSignup(form: NgForm) {
     try {

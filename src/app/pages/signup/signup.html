@@ -1,56 +1,118 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Registrarse</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div *ngIf="isDesktop" class="desktop">
+  <ion-header mode="ios">
+    <ion-toolbar>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2">
+          <img src="./assets/img/Logo.png" class="logo ion-text-left">
+        </ion-col>
+        <ion-col size="10">
+          <div class="navbar" class="ion-text-right">
+            <ion-button fill="clear"  routerLink="/app/tabs/winners" routerDirection="root" routerLinkActive="active-link"
+              class="link">
+               <p class="color1">Inicio</p>
+               
+            </ion-button>
+            <ion-button fill="clear" routerLink="/app/tabs/about" routerDirection="root" routerLinkActive="active-link"
+              class="link">
+             <p class="color2">¿Como se juega?</p> 
+            </ion-button>
+            <ion-button fill="clear" routerLink="/app/tabs/listProducts" routerDirection="root" routerLinkActive="active-link"
+              class="link">
+              <p class="color3">Marketplace</p> 
+            </ion-button>
+            <ion-button fill="clear" routerLink="/app/tabs/support" routerDirection="root" routerLinkActive="active-link"
+            class="link">
+            <p class="color4">Contacto</p> 
+          </ion-button>
+          <ion-button fill="clear" routerLink="/app/tabs/account" routerDirection="root" routerLinkActive="active-link"
+          class="link">
+        <!--   <p class="color5">| Mi Cuenta</p>  -->
+        <ion-icon name="person" color="primary"> |  Mi Cuenta</ion-icon>
 
-<ion-content>
+        <p class="color5">| Mi Cuenta</p> 
+        </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+ 
+  <ion-router-outlet class="desktop-wrapper"></ion-router-outlet>
+ 
+
+</div>
+
+
+<!-- <ion-content>
 
   <div class="signup-logo">
     <img src="assets/img/theRetos.PNG" alt="Ionic Logo">
   </div>
 
-  <form #signupForm="ngForm" novalidate>
-    <ion-list lines="none">
-      <ion-item>
-        <ion-label position="stacked" color="primary">Nombre</ion-label>
-        <ion-input [(ngModel)]="signup.name" name="name" type="text" #name="ngModel" required></ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="name.valid || submitted == false" class="ion-padding-start">
-         Ingresar el nombre
-        </p>
-      </ion-text>
 
-      <ion-item>
-        <ion-label position="stacked" color="primary">Correo</ion-label>
-        <ion-input [(ngModel)]="signup.email" name="email" type="text" #email="ngModel" required>
-        </ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
-          Ingresar Correo
-        </p>
-      </ion-text>
-
-      <ion-item>
-        <ion-label position="stacked" color="primary">Password</ion-label>
-        <ion-input [(ngModel)]="signup.password" name="password" type="password" #password="ngModel" required>
-        </ion-input>
-      </ion-item>
-      <ion-text color="danger">
-        <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
-         Ingresar Contraseña
-        </p>
-      </ion-text>
-    </ion-list>
-
-    <div class="ion-padding">
-      <ion-button (click)="onSignup(signupForm)" type="submit" expand="block">Create</ion-button>
-    </div>
-  </form>
 
 </ion-content>
+ -->
+
+
+<ion-grid>
+  <ion-row>
+    <ion-col class="centrar" size="4.5">
+      <div class="wrapper" text-left>Acepta el reto de jugar y ganar </div>
+    </ion-col>
+    <ion-col size="6">
+      <ion-list lines="full" class="ion-no-margin">
+        <p>⠀⠀</p>
+        <div >
+          <div class="form">
+            <ion-title>Registrarse</ion-title>
+            <form #signupForm="ngForm" novalidate class="login-form">
+              <ion-list lines="none">
+                <ion-item>
+                  <ion-label position="stacked" color="primary">Nombre</ion-label>
+                  <ion-input [(ngModel)]="signup.name" name="name" type="text" #name="ngModel" required></ion-input>
+                </ion-item>
+                <ion-text color="danger">
+                  <p [hidden]="name.valid || submitted == false" class="ion-padding-start">
+                    Ingresar el nombre
+                  </p>
+                </ion-text>
+
+                <ion-item>
+                  <ion-label position="stacked" color="primary">Correo</ion-label>
+                  <ion-input [(ngModel)]="signup.email" name="email" type="text" #email="ngModel" required>
+                  </ion-input>
+                </ion-item>
+                <ion-text color="danger">
+                  <p [hidden]="email.valid || submitted == false" class="ion-padding-start">
+                    Ingresar Correo
+                  </p>
+                </ion-text>
+
+                <ion-item>
+                  <ion-label position="stacked" color="primary">Password</ion-label>
+                  <ion-input [(ngModel)]="signup.password" name="password" type="password" #password="ngModel" required>
+                  </ion-input>
+                </ion-item>
+                <ion-text color="danger">
+                  <p [hidden]="password.valid || submitted == false" class="ion-padding-start">
+                    Ingresar Contraseña
+                  </p>
+                </ion-text>
+              </ion-list>
+
+              <div class="ion-padding">
+                <button (click)="onSignup(signupForm)" type="submit" expand="block">Crear cuenta</button>
+              </div>
+              <p class="message">Ya tienes cuenta? <a  routerLink="/login" >Inicio de sesion</a></p>
+            </form>
+          </div>
+        </div>
+
+
+
+
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-grid>

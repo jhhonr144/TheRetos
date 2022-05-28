@@ -15,6 +15,7 @@ import { TicketsService } from '../../Services/tickets.service';
 
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
+import { ScreensizeService } from '../../Services/screensize.service';
 
 
 @Component({
@@ -27,7 +28,8 @@ import { Subject } from 'rxjs';
 })
 export class LoginPage {
   public tickets$: Observable<Tickets>
- 
+  isDesktop: boolean;
+
   login: UserOptions = { email: '', password: '' };
   submitted = false;
   loading :any;
@@ -53,8 +55,18 @@ export class LoginPage {
     public userData: UserData,
     public router: Router,
     private AuthService : AuthService,
+    private screensizeService: ScreensizeService
 
-  ) { }
+  ) {
+    this.screensizeService.isDesktopView().subscribe(isDesktop => {
+      if (this.isDesktop && !isDesktop) {
+        // Reload because our routing is out of place
+        window.location.reload();
+      }
+ 
+      this.isDesktop = isDesktop;
+    });
+   }
 
 
   async onLogin(form: NgForm) {

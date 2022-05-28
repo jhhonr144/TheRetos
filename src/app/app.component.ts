@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 
@@ -13,6 +13,7 @@ import { UserData } from './providers/user-data';
 import { AuthService } from './Services/auth.service';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { ScreensizeService } from './Services/screensize.service';
 
 @Component({
   selector: 'app-root',
@@ -42,6 +43,12 @@ export class AppComponent implements OnInit {
       url: '/app/tabs/about',
       icon: 'information-circle'
     }
+    ,
+    {
+      title: 'soporte',
+      url: '/app/tabs/support',
+      icon: 'information-circle'
+    }
   ];
   loggedIn = false;
   dark = false;
@@ -50,15 +57,17 @@ export class AppComponent implements OnInit {
 
   constructor(
     private menu: MenuController,
-    private platform: Platform,
     private router: Router,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
     private storage: Storage,
     private userData: UserData,
     private swUpdate: SwUpdate,
     private toastCtrl: ToastController,
     private authService:AuthService,
+
+    private platform: Platform,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar,
+    private screensizeService: ScreensizeService
   ) {
     this.initializeApp();
     // Create a new Observable that publishes only the NavigationStart event
@@ -96,12 +105,12 @@ export class AppComponent implements OnInit {
     });
   }
 
-  initializeApp() {
+/*   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-  }
+  } */
 
   logout() {
     this.userData.logout().then(() => {
@@ -114,4 +123,19 @@ export class AppComponent implements OnInit {
     this.storage.set('ion_did_tutorial', false);
     this.router.navigateByUrl('/tutorial');
   }
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+      this.screensizeService.onResize(this.platform.width());
+    });
+  }
+  @HostListener('window:resize', ['$event'])
+  private onResize(event) {
+    this.screensizeService.onResize(event.target.innerWidth);
+  }
+ 
+
+
+  
 }

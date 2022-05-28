@@ -62,13 +62,13 @@
               <img [src]="products.data.path">
             </div>
             <div class="contentBx">
-              <h2>{{products.data.name}}</h2>
+              <h2>{{products.data.id}}</h2>
             
               <div class="color">
                 <h3>Tickets :</h3>
-                <h2 class="nameChallenges">{{products.data.ticket}}</h2>
+                <h2 class="nameChallenges">{{products.data.id}}</h2>
               </div>
-              <a href="#">Canjear</a>
+              <a style="cursor: pointer" (click)="selectProduct(products.data)">Canjear</a>
             </div>
           </div>
         </div>

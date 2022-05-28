@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
-import { ScreensizeService } from '../../Services/screensize.service';
+import { Component, OnInit } from '@angular/core';
+import { ScreensizeService } from '../Services/screensize.service';
 
 @Component({
-  selector: 'app-tabs',
-  templateUrl: 'tabs-page.html',
-  styleUrls: ['./tabs-page.scss'],
+  selector: 'app-menutop',
+  templateUrl: './menutop.component.html',
+  styleUrls: ['./menutop.component.scss'],
+  
   
 })
+export class MenutopComponent implements OnInit {
 
-export class TabsPage {
   isDesktop: boolean;
  
   constructor(private screensizeService: ScreensizeService) {
@@ -21,5 +22,7 @@ export class TabsPage {
       this.isDesktop = isDesktop;
     });
   }
-  }
-  
+
+  ngOnInit() {}
+
+}

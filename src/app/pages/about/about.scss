@@ -8,6 +8,40 @@ ion-toolbar {
   --background: transparent;
   --color: white;
 }
+.square {
+  width: 40%;
+  margin: 1%;
+}
+
+.conf1 {
+  width: 120%;
+  height: 120%;
+}
+.conf2 {
+  width: 75%;
+  align-items: center;
+  justify-items: center;
+  height: 75%;
+}
+.conf3 {
+  width: 90%;
+  align-items: center;
+  justify-items: center;
+  height: 90%;
+}
+
+.wrapper {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  justify-items: center;
+  align-items: start;
+  justify-content: space-around;
+  align-content: center;
+}
+.centrar{
+  margin-top: 10%;
+}
 
 ion-toolbar ion-button,
 ion-toolbar ion-back-button,

@@ -1,5 +1,25 @@
 <ion-tabs>
 
+<!--   <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="challenges">
+      <ion-icon name="medal"></ion-icon>
+      <ion-label>Retos</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="speakers">
+      <ion-icon name="flame"></ion-icon>
+      <ion-label>Premios</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="about">
+      <ion-icon name="information-circle"></ion-icon>
+      <ion-label>Conocenos</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar> -->
+
+</ion-tabs>
+
+<ion-tabs *ngIf="!isDesktop">
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="challenges">
       <ion-icon name="medal"></ion-icon>
@@ -16,5 +36,48 @@
       <ion-label>Conocenos</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
-
 </ion-tabs>
+ 
+<div *ngIf="isDesktop" class="desktop">
+  <ion-header  translucent="true">
+    <ion-toolbar>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="2">
+          <img src="./assets/img/Logo.png" class="logo ion-text-left">
+        </ion-col>
+        <ion-col size="10">
+          <div class="navbar" class="ion-text-right">
+            <ion-button fill="clear"  routerLink="/app/tabs/challenges" routerDirection="root" routerLinkActive="active-link"
+              class="link">
+               <p class="color1">Inicio</p>
+               
+            </ion-button>
+            <ion-button fill="clear" routerLink="/app/tabs/about" routerDirection="root" routerLinkActive="active-link"
+              class="link">
+             <p class="color2">¿Como se juega?</p> 
+            </ion-button>
+            <ion-button fill="clear" routerLink="/app/tabs/listProducts" routerDirection="root" routerLinkActive="active-link"
+              class="link">
+              <p class="color3">Marketplace</p> 
+            </ion-button>
+            <ion-button fill="clear" routerLink="/app/tabs/support" routerDirection="root" routerLinkActive="active-link"
+            class="link">
+            <p class="color4">Contacto</p> 
+          </ion-button>
+          <ion-button fill="clear" routerLink="/app/tabs/account" routerDirection="root" routerLinkActive="active-link"
+          class="link">
+        <!--   <p class="color5">| Mi Cuenta</p>  -->
+        <ion-icon name="person" color="primary"> |  Mi Cuenta</ion-icon>
+
+        <p class="color5">| Mi Cuenta</p> 
+        </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-header>
+ 
+  <ion-router-outlet class="desktop-wrapper"></ion-router-outlet>
+ 
+
+</div>

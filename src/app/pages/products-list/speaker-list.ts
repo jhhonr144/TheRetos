@@ -1,7 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ConferenceData } from '../../providers/conference-data';
-import { ProductsService } from './../../Services/products.service';
+import { ProductsService } from '../../Services/products.service';
+
 @Component({
   selector: 'page-speaker-list',
   templateUrl: 'speaker-list.html',
@@ -15,8 +16,10 @@ export class SpeakerListPage  implements OnInit{
   constructor(public confData: ConferenceData,private ProductsService: ProductsService) {}
   ngOnInit() {
     this.ProductsService.getProducts().subscribe(datos=>{
-      console.log(datos)
+     
       this.Products = datos
+      console.log( this.Products)
+      console.log( datos[1])
     })
   }
 
@@ -24,5 +27,9 @@ export class SpeakerListPage  implements OnInit{
     this.confData.getSpeakers().subscribe((speakers: any[]) => {
       this.speakers = speakers;
     });
+  }
+  
+  selectProduct(prod){
+    console.log(prod)
   }
 }

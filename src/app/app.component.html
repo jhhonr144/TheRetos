@@ -1,6 +1,6 @@
 <ion-app [class.dark-theme]="dark">
   <ion-split-pane contentId="main-content">
-
+<!-- 
     <ion-menu contentId="main-content">
       <ion-content>
         <ion-list lines="none">
@@ -58,12 +58,12 @@
           <ion-list-header>
             Tutorial
           </ion-list-header>
-          <!-- <ion-menu-toggle autoHide="false">
+          <ion-menu-toggle autoHide="false">
             <ion-item button (click)="openTutorial()" detail="false">
               <ion-icon slot="start" name="hammer"></ion-icon>
               <ion-label>Show Tutorial</ion-label>
             </ion-item>
-          </ion-menu-toggle> -->
+          </ion-menu-toggle>
           <ion-item>
             <ion-icon slot="start" name="moon-outline"></ion-icon>
             <ion-label>
@@ -71,18 +71,18 @@
             </ion-label>
             <ion-toggle [(ngModel)]="dark"></ion-toggle>
           </ion-item>
-          <!-- <ion-menu-toggle autoHide="false">
+          <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/support" routerLinkActive="active" routerDirection="root" detail="false">
               <ion-icon slot="start" name="help"></ion-icon>
               <ion-label>
                 Ayuda
               </ion-label>
             </ion-item>
-          </ion-menu-toggle> -->
+          </ion-menu-toggle>
 
         </ion-list>
       </ion-content>
-    </ion-menu>
+    </ion-menu> -->
 
     <ion-router-outlet id="main-content"></ion-router-outlet>
 

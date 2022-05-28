@@ -12,8 +12,8 @@ import { SupportPageRoutingModule } from './support-routing.module';
     IonicModule,
     SupportPageRoutingModule
   ],
-  declarations: [
-    SupportPage,
-  ]
+  declarations: [SupportPage],
+  entryComponents: [],
+  bootstrap: [SupportPage],
 })
 export class SupportModule { }

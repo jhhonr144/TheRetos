@@ -1,34 +1,87 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Support</ion-title>
-  </ion-toolbar>
-
-</ion-header>
-
 <ion-content>
-  <div class="support-logo">
-    <img src="assets/img/appicon.svg" alt="Ionic Logo">
-  </div>
+  
+<ion-grid>
 
-  <form #submitForm="ngForm" novalidate (ngSubmit)="submit(submitForm)">
-    <ion-list lines="none">
+    <ion-row>
+      <ion-col  >
+        <div class="wrapper" >Contacto</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+<ion-grid >       
+    <ion-row >
+      <ion-col class="centrar">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6597.797938974056!2d-73.27467864197176!3d10.494822840864401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e8ab91f05e22b49%3A0x3058831a87dd2fb5!2sCentro%20Comercial%20Guatapuri!5e0!3m2!1ses!2sco!4v1652658725057!5m2!1ses!2sco" width="200" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </ion-col>
+      <ion-col >
+        <ion-list lines="full" class="ion-no-margin">
+          <p>⠀⠀</p>
+          <p class="label" center>¡Nosotros te <b>ayudamos</b>!</p>
+          <ion-list-header lines="full">
+            <ion-label class="label2"> <b>CONTÁCTANOS </b></ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label class="label">Nombres</ion-label>
+            <ion-input placeholder=""></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="label">Apellido</ion-label>
+            <ion-input placeholder=""></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label class="label">Celular</ion-label>
+            <ion-input placeholder=""></ion-input>
+          </ion-item>
+
+
+        </ion-list>
+      </ion-col>    
+    </ion-row>
+</ion-grid>    
+
+<ion-grid> 
+
+  <ion-row >
+    <ion-col >
+      <div class="wrapper" text-left>Preguntas frecuentes</div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid>
+
+  <ion-row class="ion-justify-content-center">
+ 
+    <ion-col >
+
+      
+      <!-- Item Labels -->
       <ion-item>
-        <ion-label position="stacked" color="primary">Enter your support message below</ion-label>
-        <ion-textarea [(ngModel)]="supportMessage" name="supportQuestion" #supportQuestion="ngModel" rows="6" required></ion-textarea>
+        <ion-label></ion-label>
       </ion-item>
-    </ion-list>
+      
+      <ion-item>
+        <ion-label class="ion-text-wrap label">
+          ¿Como reclamo mis tickets?
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap label">
+          ¿Que hago si olvide mi usuario?
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap label">
+          ¿Como Crear un Reto?
+        </ion-label>
+      </ion-item>
 
-    <ion-text color="danger">
-      <p [hidden]="supportQuestion.valid || submitted === false" class="ion-padding-start">
-        Support message is required
-      </p>
-    </ion-text>
 
-    <div class="ion-padding">
-      <ion-button expand="block" type="submit">Submit</ion-button>
-    </div>
-  </form>
+    </ion-col>
+    <ion-col  size="3">
+      <div><ion-img  src="../assets/img/3.png"></ion-img></div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-content>

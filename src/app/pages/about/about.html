@@ -1,34 +1,24 @@
-<ion-content>
-  <ion-header class="ion-no-border">
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+<ion-content fullscreen>
+  <ion-grid>
 
-  <div class="about-header">
-    <!-- Instead of loading an image each time the select changes, use opacity to transition them -->
-    <div class="about-image seattle" [ngStyle]="location === 'seattle' && {'opacity': '1'}"></div>
-  </div>
+    <ion-row>
+      <ion-col  >
+        <div class="wrapper" ><ion-img class="square" src="../assets/img/comojuega.png"></ion-img></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
 
-  <div class="about-info">
-    <h3 class="ion-padding-top ion-padding-start">TheRetos</h3>
-
-    <p class="ion-padding-start ion-padding-end">
-      En CREAR TheRETOS® podrás crear tus RETOS y compartirlo con tus amigos y familiares. También podrás
-publicarlos para que el mundo entero pueda participar.
-    </p>
-    <p>
-      Para poder crearlos primero elige si es para el mundo entero o solo para tus amigos mas cercanos. Elige la
-cantidad de TICKETS necesarios para que cada participar y el tiempo que durará tu RETO. Luego de terminar
-el tiempo propuesto, se elige un ganador quien se queda con todas las fichas.
-    </p>
-
-  
-
-
-
-
-  </div>
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <div><ion-img class="conf3"  src="../assets/img/2.png"></ion-img></div>
+      </ion-col>
+      <ion-col size="4.7">
+        <div><ion-img src="../assets/img/como.png"></ion-img></div>
+      </ion-col>
+      <ion-col>
+        <div><ion-img class="conf2"  src="../assets/img/3.png"></ion-img></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -6,6 +6,7 @@ import { AuthGuard } from '../../shared/auth.guard';
 import { AuthorizedGuard } from '../../shared/authorized.guard';
 import { Role } from '../../model/role';
 
+
 const routes: Routes = [
   {
     path: 'tabs',
@@ -47,7 +48,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('../speaker-list/speaker-list.module').then(m => m.SpeakerListModule)
+            loadChildren: () => import('../products-list/speaker-list.module').then(m => m.SpeakerListModule)
           },
           {
             path: 'session/:sessionId',
@@ -60,7 +61,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () => import('../speaker-list/speaker-list.module').then(m => m.SpeakerListModule),
+            loadChildren: () => import('../products-list/speaker-list.module').then(m => m.SpeakerListModule),
             canActivate: [AuthorizedGuard],
            data: { roles: [Role.Admin, Role.User ] }
           },
@@ -96,17 +97,23 @@ const routes: Routes = [
       },
       {
         path: 'about',
-        children: [
-          {
-            path: '',
+        
             loadChildren: () => import('../about/about.module').then(m => m.AboutModule)
-          }
-        ]
+         
       },
       {
         path: '',
         redirectTo: '/app/tabs/challenges',
         pathMatch: 'full'
+      },
+      {
+        path: 'support',
+        loadChildren: () => import('../support/support.module').then(m => m.SupportModule)
+      },
+      {
+        path: 'account',
+        loadChildren: () => import('../account/account.module').then(m => m.AccountModule),
+        canActivate : [AuthGuard]
       }
     ]
   }

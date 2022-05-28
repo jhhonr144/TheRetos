@@ -1,9 +1,9 @@
-<ion-header translucent="true">
+<!-- <ion-header translucent="true">
   <ion-toolbar>
     <ion-buttons *ngIf="!showSearchbar" slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-segment *ngIf="ios" [(ngModel)]="segment">
+     <ion-segment *ngIf="ios" [(ngModel)]="segment">
       <ion-segment-button value="all">
         All
       </ion-segment-button>
@@ -11,11 +11,11 @@
         Favorites
       </ion-segment-button>
     </ion-segment>
-    <ion-title>TheRetos</ion-title>
+  
 
 
 
-    <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText"
+     <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText"
       (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
     <ion-buttons slot="end">
 
@@ -34,31 +34,28 @@
           <ion-icon slot="icon-only" name="options"></ion-icon>
         </span>
       </ion-button>
-    </ion-buttons>
+    </ion-buttons> 
   </ion-toolbar>
   <ion-toolbar *ngIf="!ios">
     <ion-segment [(ngModel)]="segment">
       <ion-segment-button value="all">
-        Todos
-      </ion-segment-button>
-      <ion-segment-button value="favorites">
-        Favoritos
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 
 </ion-header>
+ -->
+<!--  <ion-content fullscreen>
 
-<ion-content fullscreen>
   <ion-list>
 
-    <ion-item button detail="true" *ngFor="let challeng of Challengs">
+    <ion-item button detail="true" *ngFor="let challeng of Challengs" class="tar">
       <ion-avatar slot="start" (click)="details(challeng)">
         <ion-icon name="flash"></ion-icon>
       </ion-avatar>
       <ion-label (click)="details(challeng)">
         <h2> {{challeng.name_challeng}}</h2>
-        <!-- <h3>Categoria: {{challeng.category}}</h3> -->
+       <h3>Categoria: {{challeng.category}}</h3>
         <ion-label color="secondary">Tickets: {{challeng.token_in}}</ion-label>
 
       </ion-label>
@@ -72,4 +69,41 @@
     </ion-fab-button>
   </ion-fab>
 
+</ion-content> -->
+
+
+<ion-content>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col  >
+        <div class="wrapper2" ><ion-img class="square" src="../assets/img/33.png"></ion-img></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+<ion-grid>
+
+  <ion-row>
+    <ion-col  >
+      <div class="wrapper" >  
+        <div class="prsCard img-fluid">
+          
+        <table  class="prsTable" >
+        <tbody>
+        <tr style="height: 159px;">
+        <td style="height: 159px;">
+          <p class="fisica" >Actividad Fisica</p>
+          
+        </td>
+        <td style="width: 93.2%; height: 250px;"></td>
+        </tr>
+        </tbody>
+        </table>
+      </div> 
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
 </ion-content>
