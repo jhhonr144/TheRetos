@@ -91,7 +91,7 @@ ion-item {
   color: var(--ion-color-primary-contrast);
 }
 
-ion-grid {
+.ion-grid {
    display: flex;
   justify-content: center;
   flex-direction: column;
@@ -173,3 +173,119 @@ ion-grid {
   font-size: 11px;
 }
 
+
+/* .btn{
+  background-image:url("/assets/img/btn5.png");
+  background-repeat:no-repeat;
+  height:100px;
+  width:100px;
+  background-position:center;
+}
+ */
+span {
+  margin: 0 10px;
+}
+
+
+.btn-blue:hover {
+  background: #6600aa;
+  box-shadow: 0 -2px 0 3px #6100a1 inset, 0 5px 5px rgba(0, 0, 0, 0.17), 0 15px rgba(255, 255, 255, 0.32) inset;
+}
+.btn {
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+}
+.btn:last-child {
+  margin-right: 0;
+}
+
+@media screen and (min-width: 960px) {
+  .card {
+    width: calc(960px - 4rem);
+  }
+}
+
+.btn {
+  --color: #000000; 
+  /* --background-color: #d8d8d8; */
+  /* --border-color: darken(#d8d8d8, 7.5%); */
+  color: var(--color);
+  font-family: inherit;
+
+  /* background-color: var(--background-color); */
+  padding: 0.6rem 0.9rem;
+  /* border: solid 1px var(--border-color); */
+  outline: none;
+  position: relative;
+
+  border-radius: 10rem;
+  width: 277px;
+  -moz-user-select: none;
+  background: #4f0082;
+  height: 63px;
+  user-select: none;
+  /* box-shadow: 0 0.2rem 0.4rem rgb(0 0 0 / 40%), 0 -0.3rem 0.6rem rgb(0 0 0 / 20%) inset; */
+  transition: box-shadow 64ms ease-out;
+  box-shadow: 0px -7px 0px 10px #4f0082 inset, -1px 2px 4px 4px rgb(3 25 41 / 17%), 0 15px rgb(255 255 255 / 25%) inset;
+}
+.btn:hover  {
+  color: var(--color);
+  font-family: inherit;
+  padding: 0.6rem 0.9rem;
+  outline: none;
+  position: relative;
+  border-radius: 10rem;
+  width: 277px;
+  -moz-user-select: none;
+  background: #4f0082;
+  height: 63px;
+  user-select: none;
+  transition: box-shadow 64ms ease-out;
+  box-shadow: 0px -7px 0px 10px #5f009f inset, -1px 2px 4px 4px rgb(3 25 41 / 17%), 0 15px rgb(255 255 255 / 25%) inset;
+}
+
+.btn:active:after {
+  opacity: 0;
+}
+
+.btn-info {
+  --color: #ffffff;
+    border: 3px solid #fff;
+}
+
+.test{
+  text-align: center;
+}
+
+.btn2 {
+  --color: #000000;
+  color: var(--color);
+  font-family: inherit;
+  padding: 0.6rem 0.9rem;
+  outline: none;
+  position: relative;
+  border-radius: 10rem;
+  width: auto;
+  -moz-user-select: none;
+  background: #ffa200;
+  user-select: none;
+  transition: box-shadow 64ms ease-out;
+  box-shadow: 0px -7px 0px 10px #ffa200 inset, 3px 4px 0px 0px #b56d00, 0 15px rgb(255 255 255 / 25%) inset;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.btnpeque{
+
+  text-align: left;
+  padding-left: 115px;
+}
+.inputnumber{
+  background-color: #4f0082;
+  border-radius: 20px;
+  width: 86px;
+  height: 86px;
+  color: white;
+  text-align-last: center;
+  font-size:25px;
+}

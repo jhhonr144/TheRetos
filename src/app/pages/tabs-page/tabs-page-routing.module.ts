@@ -1,3 +1,4 @@
+import { StartMarkertComponent } from './../../start-markert/start-markert.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { TabsPage } from './tabs-page';
@@ -5,7 +6,6 @@ import { SchedulePage } from '../challenges/challenges';
 import { AuthGuard } from '../../shared/auth.guard';
 import { AuthorizedGuard } from '../../shared/authorized.guard';
 import { Role } from '../../model/role';
-
 
 const routes: Routes = [
   {
@@ -96,10 +96,8 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'about',
-        
-            loadChildren: () => import('../about/about.module').then(m => m.AboutModule)
-         
+        path: 'about',      
+            loadChildren: () => import('../about/about.module').then(m => m.AboutModule)     
       },
       {
         path: '',
@@ -114,11 +112,16 @@ const routes: Routes = [
         path: 'account',
         loadChildren: () => import('../account/account.module').then(m => m.AccountModule),
         canActivate : [AuthGuard]
+      },
+      {
+
+        path: 'marketPlace',
+        loadChildren: () => import('../../start-markert/startMark.module').then(m => m.startMarkModule),
+        canActivate : [AuthGuard]
       }
     ]
   }
 ];
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

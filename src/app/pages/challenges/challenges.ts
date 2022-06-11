@@ -27,6 +27,7 @@ export class SchedulePage implements OnInit {
   data: any;
   roleAutorized:boolean;
   Tickets = []
+  challengs2: any;
 
   constructor(
     private AuthService: AuthService,
@@ -56,12 +57,31 @@ export class SchedulePage implements OnInit {
       }
     );
   }
+  
 
   //consultamos retos
   getChallengs() {
     this.presentLoading().then(() => {
       this.database.getChallengs<Challengs>().subscribe(res => {
         this.Challengs = res;
+   /*      for(let dato of res){
+          this.challengs2 = {
+            category: dato.category,
+            date_creation:dato.date_creation,
+            date_limit :dato.date_limit,
+            description:dato.description,
+            id_challengs:dato.id_challengs,
+            id_creator:dato.id_creator,
+            name_challeng:dato.name_challeng,
+            person_limit:dato.person_limit,
+            privacy:dato.privacy,
+            state_challeng:dato.state_challeng,
+            state_game:dato.state_game,
+            time_creation:dato.time_creation,
+            time_limit:dato.time_limit,
+            token_in:dato.token_in
+          }
+        } */
         this.loading.dismiss();
       });
     });
