@@ -12,6 +12,7 @@ import { ScheduleModule } from '../challenges/challenges.module';
 import { SessionDetailModule } from '../session-detail/session-detail.module';
 import { SpeakerDetailModule } from '../challenges-details/speaker-detail.module';
 import { SpeakerListModule } from '../products-list/speaker-list.module';
+import { PaymentGatewayComponent } from '../payment-gateway/payment-gateway.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { SpeakerListModule } from '../products-list/speaker-list.module';
   ],
   declarations: [
     TabsPage,
+    PaymentGatewayComponent
   ]
 })
 export class TabsModule { }

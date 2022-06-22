@@ -6,6 +6,7 @@ import { SchedulePage } from '../challenges/challenges';
 import { AuthGuard } from '../../shared/auth.guard';
 import { AuthorizedGuard } from '../../shared/authorized.guard';
 import { Role } from '../../model/role';
+import { PaymentGatewayComponent } from '../payment-gateway/payment-gateway.component';
 
 const routes: Routes = [
   {
@@ -98,6 +99,25 @@ const routes: Routes = [
       {
         path: 'about',      
             loadChildren: () => import('../about/about.module').then(m => m.AboutModule)     
+      },
+      {
+        path: 'payment',
+        children: [
+          {
+            path: '',
+            component: PaymentGatewayComponent,
+          },
+          {
+            path: 'offers',
+            loadChildren: () => import('../payment-gateway/offers/offers.module').then(m => m.OffersPageModule)
+          }
+        ]
+      },
+      {
+        path: 'tickets-management',
+        loadChildren: () => import('../tickets-management/tickets-management.module').then( m => m.TicketsManagementPageModule),
+        canActivate: [AuthorizedGuard],
+        data: { roles: [Role.Admin] }
       },
       {
         path: '',

@@ -39,6 +39,11 @@ export class AppComponent implements OnInit {
       icon: 'trophy'
     },
     {
+      title: 'Tickets',
+      url: '/app/tabs/tickets-management',
+      icon: 'card'
+    },
+    {
       title: 'Conocenos',
       url: '/app/tabs/about',
       icon: 'information-circle'
@@ -54,6 +59,7 @@ export class AppComponent implements OnInit {
   dark = false;
   isUserAuthenticated: boolean = false;
   navStart: Observable<NavigationStart>;
+  role:any;
 
   constructor(
     private menu: MenuController,
