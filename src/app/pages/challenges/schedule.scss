@@ -118,6 +118,24 @@ ion-grid {
     background-position: center;
   //background-color: #3880ff;
 }
+.prsCard2{
+  border-radius: 29px;
+  background-repeat: no-repeat;
+  background-image: url("/assets/img/panel2.png");
+  /* background-size: cover; */
+  background-position: 50% 50%;
+  background-position: center;
+//background-color: #3880ff;
+}
+.prsCard3{
+  border-radius: 29px;
+  background-repeat: no-repeat;
+  background-image: url("/assets/img/panel3.png");
+  /* background-size: cover; */
+  background-position: 50% 50%;
+  background-position: center;
+//background-color: #3880ff;
+}
 
 .wrapper2 {
   display: grid;
@@ -171,5 +189,66 @@ ion-grid {
   color: white;
   width: 35%;
   font-size: 11px;
+}
+
+.spanlabel{
+  text-align: center;
+  color: white;
+  font-size: 11px;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+}
+
+.popover__title {
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #ffc409;
+  border-radius: 10px;
+  color: white;
+  font-size: 11px;
+}
+
+.popover__wrapper {
+  position: relative;
+  display: inline-block;
+}
+.popover__content {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 60px;
+  transform: translate(0, 10px);
+  background-color: #131313;
+   padding: 1rem; 
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  width: auto;
+}
+.popover__content:before {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  right: calc(50% - 10px);
+  top: -8px;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #171717 transparent;
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+.popover__wrapper:hover .popover__content {
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -20px);
+  transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+.popover__message {
+  text-align: center;
+  font-size: 11px;
+  color: #DDDDDD;
 }
 

@@ -119,6 +119,12 @@ const routes: Routes = [
         loadChildren: () => import('../../start-markert/startMark.module').then(m => m.startMarkModule),
         canActivate : [AuthGuard]
       }
+      ,
+      {
+        path: 'newChalleges',
+        loadChildren: () => import('../new-challeges/new-challeges.module').then(m => m.NewChallegesModule),
+        canActivate : [AuthGuard]
+      }
     ]
   }
 ];

@@ -12,20 +12,35 @@
     <ion-row class="test">
       <ion-col >   
          <button class="btn btn-info">Adquirir Ticktes</button>
-         <ion-grid  class="btnpeque">       
+         <ion-grid >       
           <ion-row>
-            <ion-col >         
-              <ion-input type="number" class="inputnumber" value="333"></ion-input>        
+            <ion-col  style="text-align: -webkit-right;">         
+              <ion-input type="number" class="inputnumber" [(ngModel)]="Tickets"  disabled></ion-input>                      
             </ion-col>
             <ion-col >
-              <button class="btn2 btn-info">Deportes</button>
+              <table style="width: 11%; margin-right: calc(89%);">
+                <tbody>
+                    <tr>
+                        <td style="width: 100.0000%;">                      
+                          <button class="btnarriba"  (click)="Subir()" block>
+                            <img class="imgbtn" src='/assets/img/subir.png'>
+                         </button>
+                        </td>
+                    </tr>
+                    <tr>
+                      <button class="btnarriba" (click)="Bajar()" block>
+                        <img class="imgbtn1" src='/assets/img/bajar.png'>
+                     </button>
+                    </tr>
+                </tbody>
+            </table>
             </ion-col> 
                          
           </ion-row>
       </ion-grid> 
       </ion-col>
       <ion-col >
-        <button class="btn btn-info">Reclamar Premios</button>
+        <button routerLink="/app/tabs/listProducts" class="btn btn-info">Reclamar Premios</button>
         <ion-grid  class="btnpeque">       
           <ion-row>
             <ion-col >         
