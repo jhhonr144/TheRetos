@@ -27,19 +27,15 @@ export async function get(req: Request, res) {
     try {
         let obj:any;
         const uid = req.params.uid;
-        const query = await admin.firestore().collection(collection).where("uid","==",uid).get();
+        const query = await admin.firestore().collection(collection)
+                                 .where("uid","==",uid)
+                                 .orderBy('date_creation','desc')
+                                 .orderBy('hour_creation','desc')
+                                 .limit(1)
+                                 .get();
 
-        query.forEach(querySnapshot =>{
-            obj = querySnapshot.data();
-            //console.log(querySnapshot.data())
-        } 
-           
-        );
-           
-            
+        if (!query.empty) obj = query.docs[0].data();
         return res.status(OK).json(obj);
-       
-      
     } catch (err) {
         return handleError(res, err)
     }
@@ -49,6 +45,8 @@ export async function get(req: Request, res) {
 
 export async function add(req: Request, res: Response) {
     const newItem: Tickets = {...req.body};
+    newItem.date_creation = formatDate(new Date());
+    newItem.hour_creation = (new Date()).toLocaleTimeString('it-IT');
     const newDoc = await admin.firestore().collection(collection).add(newItem);
     //console.log(`Created a new ${collection}: ${newDoc.id}`);
     newItem.id = newDoc.id
@@ -84,4 +82,8 @@ export async function remove(req: Request, res: Response) {
 
 function handleError(res: Response, err: any) {
     return res.status(500).send({ message: `${err.code} - ${err.message}` });
+}
+
+function formatDate(date) {
+    return date.getFullYear() + '/' + (date.getMonth() + 1) +'/'+ + date.getDate()
 }
