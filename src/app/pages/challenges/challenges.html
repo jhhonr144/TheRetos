@@ -1,4 +1,4 @@
-<!-- <ion-header translucent="true">
+<!--  <ion-header translucent="true">
   <ion-toolbar>
     <ion-buttons *ngIf="!showSearchbar" slot="start">
       <ion-menu-button></ion-menu-button>
@@ -44,8 +44,8 @@
   </ion-toolbar>
 
 </ion-header>
- -->
-<!--  <ion-content fullscreen>
+
+  <ion-content fullscreen>
 
   <ion-list>
 
@@ -69,8 +69,8 @@
     </ion-fab-button>
   </ion-fab>
 
-</ion-content> 
- -->
+</ion-content>  -->
+
 
 <ion-content>
   <ion-grid>
@@ -98,15 +98,14 @@
                   </td>
                   <td style="width: 93.2%; height: 250px;">
                     <ion-row>
-                      <ion-col size="4" *ngFor="let challeng of Challengs">
+                      <ion-col size-xs="12" size-lg="4" size-md="4" size-sm="12" *ngFor="let challeng of Challengs" col-auto>
 
                         <table style="border-collapse: collapse; width: 70%; height: 286px;text-align: center;"
                           class="label2">
                           <tbody>
                             <tr>
                               <td style="text-align: -webkit-center;">
-                                <ion-img style="cursor: pointer;width:50%;height:50%;" src="../assets/img/acti/act4.png"
-                                  (click)="details(challeng)"></ion-img>
+                                <ion-img style="cursor: pointer;width:50%;height:50%;" src="../assets/img/acti/act4.png"></ion-img>
                               </td>
                             </tr>
                             <tr style="height: 45px;">
@@ -130,7 +129,7 @@
                             <tr style="height: 44px;">
                               <td style="width: 100%; height: 44px;">
                                 <div class="popover__wrapper">
-                                  <a href="#">
+                                  <a >
                                     <h2 class="popover__title">Reglas del juego</h2>
                                   </a>
                                   <div class="popover__content">

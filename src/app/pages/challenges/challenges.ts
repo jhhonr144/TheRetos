@@ -64,7 +64,7 @@ export class SchedulePage implements OnInit {
     this.presentLoading().then(() => {
       this.database.getChallengs<Challengs>().subscribe(res => {
         this.Challengs = res;
-   /*      for(let dato of res){
+         for(let dato of res){
           this.challengs2 = {
             category: dato.category,
             date_creation:dato.date_creation,
@@ -81,7 +81,7 @@ export class SchedulePage implements OnInit {
             time_limit:dato.time_limit,
             token_in:dato.token_in
           }
-        } */
+        } 
         this.loading.dismiss();
       });
     });
@@ -119,6 +119,7 @@ export class SchedulePage implements OnInit {
 
   //reto seleccionado 
   details(Challengs: any) {
+    console.log(Challengs)
     let database = this.local2json('Challenges');
     database.set(Challengs);
     this.router.navigateByUrl('/app/tabs/challenges/detail/1');

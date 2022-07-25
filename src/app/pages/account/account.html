@@ -9,20 +9,41 @@
 
 <ion-content>
   <div  class="ion-padding-top ion-text-center">
-    <img src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
-    <h2>{{username}}</h2>
+ <!--    <img src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar">
+    <h2>{{username}}</h2> -->
 
-    <div class="container" *ngFor="let item of tickets"> 
+    <ion-grid>
+
+      <ion-row>
+        <ion-col  >
+          <div class="wrapper" ><ion-img class="square" src="../assets/img/misRetos.png"></ion-img></div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+   <!--  <div class="container" *ngFor="let item of tickets"> 
           <div class="card card-1">
             <p style="text-align: center;"><span style="font-family: Tahoma, Geneva, sans-serif;">Tickets</span></p>
             <p style="text-align: center;"><span style="font-size: 60px;">{{item.total_ticket}}</span></p>
- <!--            <p style="text-align: center;">Cop ${{item.ticket_money}}</p> -->
+           <p style="text-align: center;">Cop ${{item.ticket_money}}</p>
           </div>
     </div>
+ -->
+<ion-row>
+  <ion-col style="text-align: right;padding-right: 10%;">
+    <button class="btn btn-info">Jugador</button>   
+    <button class="btn2 btn-info">{{username}}</button> 
+  </ion-col>
+  <ion-col style="text-align: left;padding-left: 10%;">
+    <button class="btn btn-info">Tickets</button>   
+    <button *ngFor="let item of tickets" class="btn2 btn-info">{{item.total_ticket}}</button> 
+    
+  </ion-col>
+</ion-row>
 
 
 
-    <ion-list inset>
+<!--     <ion-list inset>
       <ion-item >{{email}}</ion-item>
       <ion-item (click)="resetPassword" >  <a routerLink="/forgot-password" color="primary">Recuperar su Contraseña</a></ion-item>
       <ion-item button (click)="logout()">
@@ -30,6 +51,24 @@
         Cerrar Sesion
         </ion-label>
       </ion-item>
-    </ion-list>
+    </ion-list> -->
+
+  <div style="padding-left: 12%;padding-right: 12% ;">
+  <ion-grid class="tables">
+    <ion-row>
+      <ion-col>
+        <div style="padding-top: 5%;  letter-spacing: 2px;"> <button class="btn2 btn-info">Jugados</button> </div>
+      </ion-col>
+      <ion-col>
+        <div style="padding-top: 5%;  letter-spacing: 2px;"> <button class="btn2 btn-info">Creados</button> </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  </div>
+
+
+
+
+
   </div>
 </ion-content>
